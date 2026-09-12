@@ -50,8 +50,15 @@ Everything above has a free tier that covers this project permanently.
 
 ## Design tokens
 
-Define these in `app/globals.css` as CSS custom properties and map them into
-`tailwind.config.ts`. Never hardcode a hex value in a component.
+Define these in `app/globals.css` as CSS custom properties on `:root`, then map
+them into Tailwind through the `@theme inline` block in that same file. Never
+hardcode a hex value in a component.
+
+The project runs **Tailwind v4**, which has no `tailwind.config.ts` — v4 moved
+configuration into CSS. Earlier drafts of this file and of `README.md` referred
+to that config file; it does not exist and should not be created. The `@theme`
+block generates the utilities: `bg-ink`, `text-sand`, `border-edge`,
+`text-signal`, `font-display`, `font-body`, `font-mono`.
 
 ```css
 --ink:        #04211D;  /* page base — deep teal-black, not a tinted grey */

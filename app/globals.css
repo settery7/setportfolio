@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+/* Design tokens — the only place raw hex values appear.
+   Never hardcode a colour in a component; use the Tailwind utilities
+   generated from the @theme block below (bg-ink, text-sand, border-edge…). */
+:root {
+  --ink: #04211d; /* page base — deep teal-black, not a tinted grey */
+  --surface: #0a302a; /* raised cards and panels */
+  --edge: #174a41; /* hairlines, card borders */
+  --sand: #ede6d8; /* primary text */
+  --muted: #7e9a93; /* secondary text, captions */
+  --signal: #f2a93b; /* the single accent — amber */
+}
+
+/* Tailwind v4 maps tokens here rather than in tailwind.config.ts,
+   which v4 no longer uses. See CLAUDE.md § Design tokens. */
+@theme inline {
+  --color-ink: var(--ink);
+  --color-surface: var(--surface);
+  --color-edge: var(--edge);
+  --color-sand: var(--sand);
+  --color-muted: var(--muted);
+  --color-signal: var(--signal);
+
+  --font-display: var(--font-bricolage);
+  --font-body: var(--font-karla);
+  --font-mono: var(--font-jetbrains);
+}
+
+body {
+  background: var(--ink);
+  color: var(--sand);
+  font-family: var(--font-karla), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Body line length caps at 72 characters — CLAUDE.md § Typography. */
+.measure {
+  max-width: 72ch;
+}
+
+/* Quality floor: keyboard reachable with a visible focus ring. */
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}
+
+/* Quality floor: prefers-reduced-motion honoured everywhere.
+   Sections may still opt into subtler behaviour, but nothing animates
+   by default for a user who has asked it not to. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
