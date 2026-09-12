@@ -33,13 +33,28 @@ export default function Featured() {
             {/* Falls back to a dashed placeholder when a cover is missing,
                 rather than a broken image or a stock photograph. */}
             {project.cover ? (
-              <Image
-                src={project.cover}
-                alt={`${project.title} — screenshot of the running application`}
-                width={1600}
-                height={1000}
-                className="mb-5 w-full rounded border border-edge object-cover"
-              />
+              <div
+                className={`mb-5 grid gap-4 ${
+                  project.gallery ? "md:grid-cols-2" : ""
+                }`}
+              >
+                <Image
+                  src={project.cover}
+                  alt={`${project.title} — screenshot of the running application`}
+                  width={1600}
+                  height={1000}
+                  className="w-full rounded border border-edge object-cover"
+                />
+                {project.gallery ? (
+                  <Image
+                    src={project.gallery.src}
+                    alt={project.gallery.alt}
+                    width={1400}
+                    height={1035}
+                    className="w-full rounded border border-edge object-cover"
+                  />
+                ) : null}
+              </div>
             ) : (
               <div className="mb-5 flex h-40 items-center justify-center rounded border border-dashed border-edge text-sm text-muted">
                 Screenshot pending

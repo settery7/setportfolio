@@ -10,6 +10,10 @@ export type Project = {
   year: string;
   tech: string[];
   cover: string | null; // /public path, null until the asset exists
+  /* Optional second image, shown beside the cover on full-width tiles.
+     Used where one picture cannot carry the project — RemGlove needs both
+     the hardware and the software to make sense. */
+  gallery?: { src: string; alt: string };
   links: { live?: string; repo?: string; video?: string };
   featured: boolean;
   track: "dev" | "play";
@@ -54,6 +58,10 @@ export const projects: Project[] = [
     year: "2026",
     tech: ["ESP32", "BLE", "Flutter", "MQTT", "Gemini API"],
     cover: "/covers/remglove.webp",
+    gallery: {
+      src: "/covers/remglove-app.webp",
+      alt: "The RemGlove Flutter app — live device status, a 3D hand simulation showing the five-bit gesture code, and an analytics screen with an AI-written summary of gesture history",
+    },
     links: { repo: "https://github.com/marjorie033/RemGloves-Software" },
     featured: true,
     track: "dev",

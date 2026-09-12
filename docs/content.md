@@ -254,6 +254,17 @@ a reader.
   sensors down the fingers, the wiring harness, and the 3D-printed ESP32
   enclosure. This is the only physical object on the site and the only image
   a reader will remember.
+- **Second image:** `public/covers/remglove-app.webp` — three app screens.
+  Both are needed: the glove alone looks like an electronics project and the
+  app alone looks like any other Flutter UI. Together they show the whole
+  system, which is the actual achievement.
+
+  The screenshots also corroborate the hard part below rather than merely
+  illustrating it. The 3D Sim screen displays **Gesture Code `00000`** with
+  per-finger columns labelled **P R M I T** — pinky, ring, middle, index,
+  thumb — which is the five-bit encoding surfaced directly in the interface.
+  The analytics screen shows the Gemini summary running in production over a
+  real week of history.
 
 **Problem.** Touch screens and voice assistants both assume something about
 the person using them — a free hand, or a voice the device recognises.
@@ -299,9 +310,19 @@ TODO: confirm, and add what went wrong before you settled on this. If you
 first streamed raw values and hit throughput or battery problems, say so — the
 version with the failure in it is better than the version without.
 
-**Result.** It works. TODO: what does it control today, and did it pass? One
-concrete sentence — "controls a TV, two lights and a fan" is worth more than
-an adjective.
+**Result.** It works, and the app screenshots carry the numbers: 494 gestures
+logged and 99 calibrations across the device list, with 373 gestures in a
+single week. A smart light and a smart fan are controllable from the glove,
+and the TV is the most-used device in the history log.
+
+TODO: two things to settle before this ships.
+
+1. The Live Device Status screen lists Smart TV as "Coming soon", but the
+   analytics call the TV the top device and the history shows `TV: HOME`
+   entries. Which is true today? The result sentence should say exactly what
+   a visitor could watch it do.
+2. Did the thesis pass, and is there a defence date or grade worth naming?
+   An accepted capstone is a fact worth one short clause.
 
 ---
 
