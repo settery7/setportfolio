@@ -62,24 +62,28 @@ The flagship. Solo, deployed, tested.
 - **Repo:** https://github.com/settery7/pykes
 - **Cover:** `docs/demo.gif` exists in the repo — export a still frame, or
   capture the feed screen at 1600×1000
-- **Hosting:** Render, free tier. This is consistent with the architecture —
-  Render runs Docker, PostgreSQL, and Redis — and its free tier is the resource
-  ceiling described under "the hard part" below.
-- **Links:** repo above · demo gif in `docs/demo.gif` · live URL
-  **TODO: exact URL from the Render dashboard.** An earlier answer gave
-  `pykes.n-cezclayne.workers.dev`, which does not resolve and is a Cloudflare
-  Workers host rather than a Render one. Probing the obvious Render names
-  (`pykes`, `pykes-app`, `pykes-web`, `pykes-frontend`, `pykes-client`,
-  `pykes-api`, `pykes-backend` at `.onrender.com`) returned 404 for all seven,
-  so the service name is something else.
+- **Hosting.** Production is split across two free tiers, which is not what the
+  repository alone suggests and is worth stating plainly in the case study:
+  - Frontend — Cloudflare Workers, https://pykes.settery.workers.dev/
+  - Backend — Render, https://pykes.onrender.com (Express, routes under `/api`)
 
-  **How to present it.** Lead with the recorded demo, not the live link. Render
-  free-tier services spin down after roughly 15 minutes idle and take about 50
-  seconds to cold start, and `docs/build-spec.md` §6 already calls this out: a
-  recorded demo beats a cold-starting free-tier deployment. Put the demo gif or
-  video first, then the live URL underneath, labelled plainly — something like
-  "live demo (free tier, takes a moment to wake)". That sets the expectation
-  instead of leaving a visitor staring at a blank tab.
+  The Docker Compose setup in the repo, with Caddy, Nginx and MinIO, is the
+  local development environment. Production does not run that stack. Do not
+  describe Compose as if it were the deployment.
+
+- **Links:** live https://pykes.settery.workers.dev/ · repo above · demo gif in
+  `docs/demo.gif`
+
+  Verified working: the frontend returns 200 and serves the app, the backend
+  answers `/api/health` with `{"status":"ok"}`, and `/api/projects` correctly
+  returns 401 without an Authorization header.
+
+  **How to present it.** The live link leads, because it works. Keep the demo
+  gif beside it as a fallback — Render free-tier services spin down after
+  roughly 15 minutes idle, so a visitor arriving cold may wait, and
+  `docs/build-spec.md` §6 covers exactly this case. A short label such as
+  "live demo — the backend sleeps when idle, give it a moment" sets the
+  expectation honestly without undercutting the link.
 
 **Problem.** I wanted a platform where developers could share the work they
 were doing — updates tied to actual projects rather than scattered across
@@ -107,11 +111,21 @@ was the whole design brief, and it decided the shape of the backend: what could
 be kept in memory, what had to be persisted, and how much of either the host
 would tolerate before falling over.
 
+The clearest evidence of that pressure is the deployment itself. The repo runs
+as one Docker Compose stack locally, but production is split — the frontend
+went to Cloudflare Workers at the edge, the backend to Render — because no
+single free tier would carry the whole thing.
+
 TODO: expand to about 150 words with one concrete decision and the alternative
-you rejected. The specific thing to describe is where you drew the line between
-Redis and PostgreSQL under those limits — the repo has Redis doing both caching
-and rate limiting, which are different jobs with different failure modes. What
-did you try first, what ran out of resources, and what did you settle on?
+you rejected. Two candidates, pick the one you actually agonised over:
+
+1. The split itself. What made you move the frontend off Render? What did
+   splitting cost you — CORS, session handling across origins, an extra
+   deployment to keep in sync?
+2. Where you drew the line between Redis and PostgreSQL under those limits. The
+   repo has Redis doing both caching and rate limiting, which are different jobs
+   with different failure modes. What did you try first, what ran out of
+   resources, and what did you settle on?
 
 **Result.** A working hobby project. It is feature-complete for what it set out
 to do, and the honest constraint is that going further means paying for
