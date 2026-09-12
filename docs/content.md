@@ -258,8 +258,20 @@ Suggested framing for the top of the page: *"Things I build when nobody is
 grading them. Mostly unfinished, which is the point."*
 
 - **How To Swim Your Fish** — https://github.com/settery7/HowToSwimYourFish —
-  Godot. Casual game where you guide a fish using feed to reach the objective.
-  The most complete of the three, so it leads.
+  Godot. A hypercasual game where you guide a fish using feed to reach the
+  objective. Built for a game jam, where it placed **7th for theme
+  implementation**. Leads the track: it is the most complete of the three, it
+  has the best art in the whole asset set, and it is the only thing on the
+  site that placed in a competition.
+
+  This is the one badge on the page and it carries `--signal`. State the
+  placement exactly as it was — 7th in theme implementation, not "won" — since
+  the precise version is both true and more credible.
+
+  TODO: which jam, and is there a results page to link? A verifiable link
+  turns this from a claim into proof, which is the whole standard the rest of
+  the site is held to. If it was the Mini Jam series, the edition number and
+  its itch.io results page would do it.
 - **Tek-Trails (Teknoy Trails)** — https://github.com/settery7/Tek-Trails —
   Unity, C#. A Pou-inspired virtual pet that merges study sessions with pet
   care, plus campus navigation for finding your way around CIT-U buildings.

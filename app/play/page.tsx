@@ -22,7 +22,8 @@ const prototypes = [
   {
     title: "How To Swim Your Fish",
     engine: "Godot",
-    note: "Guide a fish with feed to reach the objective. The most complete of the three.",
+    note: "A hypercasual game where you guide a fish with feed to reach the objective. Built for a game jam, where it placed 7th for theme implementation.",
+    badge: "Game jam — 7th, theme implementation",
     href: "https://github.com/settery7/HowToSwimYourFish",
     cover: "/covers/hty.webp",
   },
@@ -67,6 +68,13 @@ export default function PlayPage() {
               <p className="mt-1 font-mono text-xs text-muted">
                 {prototype.engine}
               </p>
+              {/* The one placement on the site, so it carries --signal here.
+                  Nothing else on this page competes for the accent. */}
+              {"badge" in prototype && prototype.badge ? (
+                <p className="mt-2 inline-block rounded-full border border-signal px-3 py-1 text-xs text-signal">
+                  {prototype.badge}
+                </p>
+              ) : null}
               <p className="measure mt-2 leading-relaxed text-muted">
                 {prototype.note}
               </p>
