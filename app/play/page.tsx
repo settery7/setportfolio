@@ -6,6 +6,7 @@
    The same thing presented as a finished game is not. */
 
 import type { Metadata } from "next";
+import Image from "next/image";
 import Nav from "@/components/sections/nav";
 import Footer from "@/components/sections/footer";
 import { identity } from "@/data/content";
@@ -23,6 +24,7 @@ const prototypes = [
     engine: "Godot",
     note: "Guide a fish with feed to reach the objective. The most complete of the three.",
     href: "https://github.com/settery7/HowToSwimYourFish",
+    cover: "/covers/hty.webp",
   },
   {
     title: "Tek-Trails",
@@ -68,6 +70,15 @@ export default function PlayPage() {
               <p className="measure mt-2 leading-relaxed text-muted">
                 {prototype.note}
               </p>
+              {"cover" in prototype && prototype.cover ? (
+                <Image
+                  src={prototype.cover}
+                  alt={`${prototype.title} — title screen`}
+                  width={1139}
+                  height={635}
+                  className="mt-4 w-full max-w-lg rounded border border-edge"
+                />
+              ) : null}
             </li>
           ))}
         </ul>

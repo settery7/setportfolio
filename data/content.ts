@@ -24,7 +24,7 @@ export const projects: Project[] = [
     role: "Solo build",
     year: "2026",
     tech: ["React", "Express", "PostgreSQL", "Redis", "Docker"],
-    cover: null,
+    cover: "/covers/pykes.webp",
     links: {
       live: "https://pykes.settery.workers.dev/",
       repo: "https://github.com/settery7/pykes",
@@ -40,7 +40,7 @@ export const projects: Project[] = [
     role: "Project manager, and wrote most of the code",
     year: "2025",
     tech: ["Flutter", "Dart"],
-    cover: null,
+    cover: "/covers/whaloo.webp",
     links: { repo: "https://github.com/settery7/whaloo" },
     featured: true,
     track: "dev",

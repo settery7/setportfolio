@@ -7,6 +7,7 @@
    Covers are null until the real screenshots land in public/. A typographic
    placeholder is honest; a stock image is not. */
 
+import Image from "next/image";
 import { coursework, projects } from "@/data/content";
 
 export default function Featured() {
@@ -26,12 +27,21 @@ export default function Featured() {
               index === 0 ? "md:col-span-2" : ""
             }`}
           >
-            {/* Height is capped so the wide tile does not open a vast empty
-                rectangle while covers are outstanding. Swap for next/image
-                once project.cover is set. */}
-            <div className="mb-5 flex h-40 items-center justify-center rounded border border-dashed border-edge text-sm text-muted">
-              Screenshot pending
-            </div>
+            {/* Falls back to a dashed placeholder when a cover is missing,
+                rather than a broken image or a stock photograph. */}
+            {project.cover ? (
+              <Image
+                src={project.cover}
+                alt={`${project.title} — screenshot of the running application`}
+                width={1600}
+                height={1000}
+                className="mb-5 w-full rounded border border-edge object-cover"
+              />
+            ) : (
+              <div className="mb-5 flex h-40 items-center justify-center rounded border border-dashed border-edge text-sm text-muted">
+                Screenshot pending
+              </div>
+            )}
 
             <h3 className="font-display text-xl font-semibold">
               {project.title}
