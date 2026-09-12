@@ -74,8 +74,11 @@ has a non-colour-only indicator, and the mobile sheet traps focus correctly.
 
 **Content.**
 - H1: name.
-- One sentence: full-stack developer building web apps and AI-powered
-  automations — Django, React, Node, LLM integrations. Based in Cebu.
+- One sentence, taken verbatim from the one-liner in `docs/content.md`:
+  Computer Engineering graduate building full-stack web and mobile
+  applications — React, Node, PostgreSQL, Flutter — and self-hosting them end
+  to end with Docker. Based in Cebu.
+  Do not reintroduce an AI or LLM claim here. No repository contains LLM work.
 - Two actions: `View projects` (scrolls to projects) and `Download CV` (PDF in
   `public/`, opens in a new tab). Only the first carries `--signal`.
 - Portrait, right side on desktop, above the text on mobile. Real photo,
@@ -100,7 +103,7 @@ hand here.
 | Item | Proof |
 | --- | --- |
 | IBM Full Stack Developer Professional Certificate | Credential URL |
-| IBM Python for Data Science, AI & Development | Credential URL |
+| Developing AI Applications with Python and Flask (IBM) | Credential URL |
 | BSc Computer Engineering — Cebu Institute of Technology | — |
 | Open source / GitHub | `github.com/settery7` |
 
@@ -198,10 +201,15 @@ content here is capability backed by evidence rather than a job history.
 
 **Content.** Four cards:
 
-- **Full-stack web** — Django, React, Node/Express, PostgreSQL, MongoDB
-- **AI & automation** — n8n, LLM APIs, webhook integrations, RAG concepts
-- **Deployment** — Docker, Kubernetes, CI with GitHub Actions
-- **Client delivery** — requirements, documentation, technical support
+- **Full-stack web** — React, Node/Express, PostgreSQL, Redis, WebSockets
+- **Mobile** — Flutter and Dart, local persistence, responsive layouts
+- **Deployment and infrastructure** — Docker, Docker Compose, Kubernetes,
+  Caddy, CI with GitHub Actions
+- **Testing** — Playwright end-to-end suites covering auth, permissions, and
+  account recovery
+
+The earlier "AI & automation" and "client delivery" cards were removed: their
+only proofs were projects that do not exist. See `docs/content.md`.
 
 Each card carries one proof link to a project that demonstrates it. A card with
 no proof link gets deleted, not padded.
