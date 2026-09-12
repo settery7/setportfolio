@@ -19,14 +19,20 @@ Claude Code: pull project descriptions from this file. Do not improvise them.
 
 **Credentials**
 
-- IBM Full Stack Developer Professional Certificate — TODO: credential URL
-- IBM Python for Data Science, AI & Development — TODO: credential URL
+- IBM Full Stack Developer Professional Certificate —
+  https://www.coursera.org/account/accomplishments/professional-cert/CBEGXGF2N74J
+- Developing AI Applications with Python and Flask (IBM) —
+  https://www.coursera.org/account/accomplishments/verify/FK33G0AW51Q0
+  TODO: confirm the exact title printed on the certificate. This entry used to
+  read "IBM Python for Data Science, AI & Development", which is a different
+  course — say which one you hold, or supply the second URL if you hold both.
+  `docs/build-spec.md` §3 names this credential too; keep the two in sync.
 
 **Links**
 
 - GitHub: https://github.com/settery7
-- LinkedIn: TODO
-- Email: TODO
+- LinkedIn: https://www.linkedin.com/in/settery/
+- Email: n.cezclayne@gmail.com
 - CV: `public/clayne-nable-cv.pdf` — TODO: export current version
 
 ---
