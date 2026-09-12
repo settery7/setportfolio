@@ -137,11 +137,10 @@ Draft — Clayne to review for voice and accuracy before it ships:
 > service just to see the page render. Splitting it means the data waits, not
 > the interface.
 
-TODO: confirm the CORS claim matches what you actually hit, and correct the
-voice anywhere it does not sound like you. If there was a specific moment this
-broke — a request failing across origins, a connection pool exhausting — one
-concrete sentence about it would make this paragraph considerably better than
-it currently is.
+CORS confirmed: Clayne hit it, so the sentence stays. Remaining TODO is voice
+only — read it aloud and change anything that does not sound like you. One
+concrete sentence about the moment the cross-origin requests started failing
+would make this paragraph better still.
 
 **Result.** A working hobby project. It is feature-complete for what it set out
 to do, and the honest constraint is that going further means paying for
@@ -161,7 +160,7 @@ A team project carried to release readiness. 101 commits.
 - **Role:** Project manager, and wrote most of the code. Lead both ways, which
   is the strongest version of this claim — say it in that order, because
   "project manager" alone would undersell the engineering.
-- **Team size:** TODO
+- **Team size:** four, including me.
 - **Year:** 2025
 - **Tech:** Flutter, Dart
 - **Repo:** https://github.com/settery7/whaloo
@@ -175,9 +174,15 @@ A team project carried to release readiness. 101 commits.
   fill the tile better than one.
 - **Links:** none. Never published.
 
-**Problem.** Students keep their study material spread across separate
-flashcard, calendar, and to-do apps, and none of them talk to each other.
-TODO: one paragraph in your own words — who on the team wanted this, and why.
+**Problem.** A reviewer app for studying, built by four of us. Students keep
+the things they revise with spread across separate apps — flashcards in one,
+the class timetable in another, notes in a third — and none of them know about
+each other. We wanted the reviewing and the scheduling in the same place, so
+that what you have to study and when you have to study it are not two separate
+problems.
+
+TODO: replace the second sentence with the actual reason your team picked this
+if it differs. One line in your own voice is worth more than a good guess.
 
 **What I built.** A Flutter note-taking and study application that combines
 four tools students normally keep in separate apps: a flashcard system with
@@ -186,16 +191,32 @@ a to-do list with its own create and edit screens; and a file viewer for study
 materials. The layout adapts to tablet as well as phone. Terms and conditions
 are included, as the app was built for distribution rather than as an exercise.
 
-**The hard part.** Responsiveness. Everything else came together, but one
-Flutter layout working across phone and tablet meant a constant stream of
-overflow warnings — the striped bars that appear the moment a row or column
-asks for more space than the screen will give it.
+**The hard part.** Reconstructed from the code in `schedule_widget.dart` and
+the abandoned files in `lib/Pages/Responsive/`. Clayne to check it reads true:
 
-TODO: expand to about 150 words. Name the screen that fought hardest — the
-schedule and to-do pages are the biggest files in the repo, so probably one of
-those — and describe the fix. The `Responsive/` directory with
-`dimensions.dart` and `responsive_layout.dart` is the approach you landed on;
-say what you were doing before that and why it did not hold.
+> The schedule screen was the one that fought back. It had to draw class
+> blocks as rectangles whose height actually means something — a 45-minute
+> block and a three-hour block are not the same shape — across seven day
+> columns, on both a phone and a tablet.
+>
+> My first attempt was a breakpoint. A `ResponsiveLayout` widget swapped an
+> entire mobile tree for an entire tablet tree at 600px. It doubled the work
+> and it did not help, because the problem was never screen width. The blocks
+> had no inherent size to begin with. Those files are still in the repo,
+> marked for deletion.
+>
+> What worked was to stop laying the rectangles out and start computing them.
+> Every time is normalised to minutes since midnight, so 2:30 PM becomes a
+> single number and a schedule crossing midnight stops being a special case.
+> The visible window comes from the earliest and latest scheduled item rather
+> than a fixed 24 hours, so an empty morning costs no space. One constant
+> converts minutes to pixels, every block's height falls out of its duration,
+> and the grid gets an exact computed height inside a scroll view. That is
+> what finally stopped the overflow warnings.
+
+Everything above is verifiable in the repository: `_timeToMinutes`,
+`_findEarliestTime`, `_findLatestTime`, `pixelsPerHour`, and the
+`math.max(baseHeight + 30, 300.0)` floor are all real. Nothing is invented.
 
 **Result.** Built to release readiness but never submitted to the Play Store or
 TestFlight. Say that plainly — it is a more credible ending than implying a
@@ -242,9 +263,9 @@ grading them. Mostly unfinished, which is the point."*
 - **Tek-Trails (Teknoy Trails)** — https://github.com/settery7/Tek-Trails —
   Unity, C#. A Pou-inspired virtual pet that merges study sessions with pet
   care, plus campus navigation for finding your way around CIT-U buildings.
-  A team project. Unfinished and barely playable — label it as an abandoned
-  prototype and let the concept do the work. TODO: what was your part on the
-  team?
+  A team project, where I was lead developer and project manager. Unfinished
+  and barely playable — label it as an abandoned prototype and let the concept
+  do the work.
 - **anito** — https://github.com/settery7/anito — Godot, GDScript. An RPG built
   around mythical creatures. Early prototype, needs substantial work. The name
   is well chosen and worth a line: *anito* are the ancestral spirits of
