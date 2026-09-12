@@ -60,8 +60,10 @@ The flagship. Solo, deployed, tested.
 - **Tech:** React, Vite, Node, Express, WebSockets, PostgreSQL, Redis, MinIO,
   Caddy, Docker, Kubernetes, GitHub Actions, Playwright
 - **Repo:** https://github.com/settery7/pykes
-- **Cover:** `docs/demo.gif` exists in the repo — export a still frame, or
-  capture the feed screen at 1600×1000
+- **Cover:** the profile screen works well — sidebar, project card with the
+  garden mid-sprout, and a typed post all visible at once. Capture it at
+  1600×1000 or wider, logged in, with the email-verification banner dismissed.
+  Save to `to-import/`. A still frame from `docs/demo.gif` is the fallback.
 - **Hosting.** Production is split across two free tiers, which is not what the
   repository alone suggests and is worth stating plainly in the case study:
   - Frontend — Cloudflare Workers, https://pykes.settery.workers.dev/
@@ -90,17 +92,24 @@ were doing — updates tied to actual projects rather than scattered across
 social platforms nobody controls. Nothing that existed did that without
 charging for it, so the whole thing was built to run on free infrastructure.
 
-**What I built.** A self-hosted build-in-public platform. Developers post
-updates tied to specific projects, and each project renders a pixel-art
-"garden" that grows every time its owner ships. The stack is six services
-behind Caddy, which handles automatic HTTPS: a React frontend served static via
-Nginx, an Express API with WebSocket support, PostgreSQL for relational data
-under versioned migrations, Redis for caching and rate limiting, and MinIO as
-S3-compatible object storage for media. Everything runs in Docker Compose, with
-Kubernetes manifests for both services and a GitHub Actions CI pipeline.
-Account handling is complete rather than demo-grade — email verification,
-password reset, and per-route rate limiting. Eight Playwright end-to-end specs
-cover the flows that matter, including garden-growth ownership.
+**What I built.** A build-in-public platform for developers. You register a
+project, post updates against it, and the project grows a pixel-art garden as
+you go. Posts are typed — update, idea, bug, shipped, release — and only a
+shipped post grows the garden, which is the rule the whole thing turns on.
+Projects carry a growth stage, so a garden visibly moves from sprouting
+onward as real work lands. There is a follower graph, comments, photo
+attachments, and an explore feed.
+
+Underneath: a React frontend, an Express API with WebSocket support,
+PostgreSQL for relational data under versioned migrations, Redis for caching
+and rate limiting, and MinIO for S3-compatible object storage. Account
+handling is complete rather than demo-grade — email verification, password
+reset, and per-route rate limiting. Eight Playwright end-to-end specs cover
+the flows that matter, including who is allowed to make a garden grow.
+
+Locally the whole thing comes up as one Docker Compose stack behind Caddy,
+with Kubernetes manifests and a GitHub Actions pipeline. Production is split
+across two hosts — see the hard part below.
 
 Include the architecture diagram here: Caddy → frontend / API → Postgres,
 Redis, MinIO. This is the diagram that earns the most on the whole site.
@@ -111,21 +120,28 @@ was the whole design brief, and it decided the shape of the backend: what could
 be kept in memory, what had to be persisted, and how much of either the host
 would tolerate before falling over.
 
-The clearest evidence of that pressure is the deployment itself. The repo runs
-as one Docker Compose stack locally, but production is split — the frontend
-went to Cloudflare Workers at the edge, the backend to Render — because no
-single free tier would carry the whole thing.
+Draft — Clayne to review for voice and accuracy before it ships:
 
-TODO: expand to about 150 words with one concrete decision and the alternative
-you rejected. Two candidates, pick the one you actually agonised over:
+> Pykes runs on two hosts, and the split came down to what each platform can
+> actually do. The frontend is a static React bundle, so it belongs on
+> Cloudflare Workers: served from the edge, nothing to keep warm, and it loads
+> the same whether you open it from Cebu or anywhere else. The backend cannot
+> live there. Workers is an edge runtime without long-lived TCP connections,
+> and the API needs pooled, persistent connections to PostgreSQL and Redis.
+> Render gives me that — an ordinary container that holds those connections
+> open.
+>
+> Keeping everything on Render would have been simpler: one origin, no CORS,
+> one deploy to think about. But then the interface would inherit the
+> backend's cold start, and a visitor would wait on a sleeping free-tier
+> service just to see the page render. Splitting it means the data waits, not
+> the interface.
 
-1. The split itself. What made you move the frontend off Render? What did
-   splitting cost you — CORS, session handling across origins, an extra
-   deployment to keep in sync?
-2. Where you drew the line between Redis and PostgreSQL under those limits. The
-   repo has Redis doing both caching and rate limiting, which are different jobs
-   with different failure modes. What did you try first, what ran out of
-   resources, and what did you settle on?
+TODO: confirm the CORS claim matches what you actually hit, and correct the
+voice anywhere it does not sound like you. If there was a specific moment this
+broke — a request failing across origins, a connection pool exhausting — one
+concrete sentence about it would make this paragraph considerably better than
+it currently is.
 
 **Result.** A working hobby project. It is feature-complete for what it set out
 to do, and the honest constraint is that going further means paying for
@@ -149,8 +165,14 @@ A team project carried to release readiness. 101 commits.
 - **Year:** 2025
 - **Tech:** Flutter, Dart
 - **Repo:** https://github.com/settery7/whaloo
-- **Cover:** TODO — screenshot of the flashcard or schedule screen from a
-  device or emulator
+- **Cover:** TODO. The Subjects screen — folders for Math, Science and English
+  with the bottom navigation — reads clearly and shows what the app is for.
+  Two problems with it as a cover: a phone screenshot is portrait and the grid
+  wants 1600×1000 landscape, so it needs composing on a background or in a
+  device frame; and the version supplied looks low-fidelity next to the Pykes
+  screenshot. If a higher-fidelity build exists, capture from that. Two or
+  three screens side by side — subjects, a flashcard, the schedule — would
+  fill the tile better than one.
 - **Links:** none. Never published.
 
 **Problem.** Students keep their study material spread across separate
