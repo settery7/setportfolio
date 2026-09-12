@@ -62,20 +62,24 @@ The flagship. Solo, deployed, tested.
 - **Repo:** https://github.com/settery7/pykes
 - **Cover:** `docs/demo.gif` exists in the repo — export a still frame, or
   capture the feed screen at 1600×1000
-- **Links:** repo above · live demo **unverified — do not publish yet.**
-  The URL given was `https://pykes.n-cezclayne.workers.dev/`, which does not
-  resolve: NXDOMAIN on both that host and the parent `n-cezclayne.workers.dev`,
-  checked from a working connection. Two things to sort out before this goes on
-  the site:
+- **Hosting:** Render, free tier. This is consistent with the architecture —
+  Render runs Docker, PostgreSQL, and Redis — and its free tier is the resource
+  ceiling described under "the hard part" below.
+- **Links:** repo above · demo gif in `docs/demo.gif` · live URL
+  **TODO: exact URL from the Render dashboard.** An earlier answer gave
+  `pykes.n-cezclayne.workers.dev`, which does not resolve and is a Cloudflare
+  Workers host rather than a Render one. Probing the obvious Render names
+  (`pykes`, `pykes-app`, `pykes-web`, `pykes-frontend`, `pykes-client`,
+  `pykes-api`, `pykes-backend` at `.onrender.com`) returned 404 for all seven,
+  so the service name is something else.
 
-  1. TODO: is the deployment still up? If it was torn down, either redeploy or
-     ship the case study with repo and demo gif only. A dead link on the
-     flagship project is worse than no link — `docs/build-spec.md` §3.
-  2. TODO: `workers.dev` is Cloudflare Workers, a serverless edge runtime that
-     cannot run Docker Compose, PostgreSQL, Redis, MinIO, or Caddy. So whatever
-     was deployed there is not the architecture described below — most likely
-     the static React frontend alone. Say which, because the case study has to
-     describe what a visitor actually reaches.
+  **How to present it.** Lead with the recorded demo, not the live link. Render
+  free-tier services spin down after roughly 15 minutes idle and take about 50
+  seconds to cold start, and `docs/build-spec.md` §6 already calls this out: a
+  recorded demo beats a cold-starting free-tier deployment. Put the demo gif or
+  video first, then the live URL underneath, labelled plainly — something like
+  "live demo (free tier, takes a moment to wake)". That sets the expectation
+  instead of leaving a visitor staring at a blank tab.
 
 **Problem.** I wanted a platform where developers could share the work they
 were doing — updates tied to actual projects rather than scattered across
@@ -97,10 +101,10 @@ cover the flows that matter, including garden-growth ownership.
 Include the architecture diagram here: Caddy → frontend / API → Postgres,
 Redis, MinIO. This is the diagram that earns the most on the whole site.
 
-**The hard part.** Running PostgreSQL and Redis together inside free-tier
-resource limits. The zero-cost constraint was not a preference, it was the
-whole design brief, and it decided the shape of the backend: what could be
-kept in memory, what had to be persisted, and how much of either the host
+**The hard part.** Running PostgreSQL and Redis together inside Render's
+free-tier resource limits. The zero-cost constraint was not a preference, it
+was the whole design brief, and it decided the shape of the backend: what could
+be kept in memory, what had to be persisted, and how much of either the host
 would tolerate before falling over.
 
 TODO: expand to about 150 words with one concrete decision and the alternative
