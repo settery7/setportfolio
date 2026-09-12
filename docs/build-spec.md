@@ -98,12 +98,13 @@ animation.
 years of experience; this one rewards range and evidence, which is the stronger
 hand here.
 
-**Content.** A single row, four items, each with a label and a proof link:
+**Content.** A single row, five items, each with a label and a proof link:
 
 | Item | Proof |
 | --- | --- |
 | IBM Full Stack Developer Professional Certificate | Credential URL |
 | Developing AI Applications with Python and Flask (IBM) | Credential URL |
+| Python for Data Science, AI & Development (IBM) | Credential URL — still missing |
 | BSc Computer Engineering — Cebu Institute of Technology | — |
 | Open source / GitHub | `github.com/settery7` |
 
@@ -118,7 +119,11 @@ credential link is worse than no strip at all.
 
 **Purpose.** The most important section on the site.
 
-**Content.** Three projects, sourced from `data/projects.ts`. Each card:
+**Content.** Two projects — Pykes and Whaloo — sourced from `data/projects.ts`.
+The Dealership capstone is deliberately not here; it moved to the coursework
+grid because it was built by following course steps and has no technical
+decision to anchor a case study. Do not pad this section back to three.
+Each card:
 cover image, title, one-line outcome, three to five tech chips, and two links —
 `Case study` (internal, always present) and `Live` or `Repo` (external, when
 one exists).
@@ -140,9 +145,14 @@ export type Project = {
 };
 ```
 
-**Layout.** Bento grid, not a uniform 3-up. The first project gets a tile twice
-the width of the other two. Hierarchy in the layout is doing work here: the
-biggest tile is the strongest project.
+**Layout.** Bento grid, not a uniform split. Pykes gets a tile roughly twice
+the width of Whaloo. Hierarchy in the layout is doing work here: the biggest
+tile is the strongest project, and Pykes is the only solo build on the site
+that was carried all the way to a deployment.
+
+Below the featured pair, a quieter coursework grid — the Dealership capstone
+and the two Computer Engineering exercises — with plain cards, no covers, and
+no hover treatment. It should read as a footnote, not a second gallery.
 
 **Behaviour.** Aceternity-style glow border on hover, one property animated
 (border colour), 200ms. Cards are links in full — the whole tile is clickable,

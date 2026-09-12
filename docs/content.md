@@ -1,13 +1,11 @@
 # Content
 
-The single source of truth for every word on the site. Fill in the `TODO:`
-items before building — writing the copy first is what makes the build fast.
+The single source of truth for every word on the site.
 
 Claude Code: pull project descriptions from this file. Do not improvise them.
 
-Every project below was verified against `github.com/settery7` before it was
-written in. Nothing here is aspirational. If a project is not on this list, it
-does not go on the site.
+Every project below was verified against `github.com/settery7`. Nothing here is
+aspirational. If a project is not on this list, it does not go on the site.
 
 ---
 
@@ -17,24 +15,24 @@ does not go on the site.
 - **Handle:** settery7
 - **Location:** Cebu, Philippines
 - **Education:** BS Computer Engineering, Cebu Institute of Technology –
-  University. TODO: graduation year, or expected year
+  University. Graduated May 2026.
 - **One-liner:** Computer Engineering graduate building full-stack web and
   mobile applications — React, Node, PostgreSQL, Flutter — and self-hosting
   them end to end with Docker.
 
-The one-liner deliberately makes no AI or LLM claim. There is no LLM work in
-any repository, and a claim without an artifact gets cut.
+The one-liner makes no AI or LLM claim. There is no LLM work in any
+repository, and a claim without an artifact gets cut.
 
-**Credentials**
+**Credentials** — both are held.
 
 - IBM Full Stack Developer Professional Certificate —
   https://www.coursera.org/account/accomplishments/professional-cert/CBEGXGF2N74J
 - Developing AI Applications with Python and Flask (IBM) —
   https://www.coursera.org/account/accomplishments/verify/FK33G0AW51Q0
-  TODO: confirm the exact title printed on the certificate. This entry used to
-  read "IBM Python for Data Science, AI & Development", which is a different
-  course — say which one you hold, or supply the second URL if you hold both.
-  `docs/build-spec.md` §3 names this credential too; keep the two in sync.
+- Python for Data Science, AI & Development (IBM) —
+  TODO: credential URL. Confirmed held, but the verification link is still
+  missing. `docs/build-spec.md` §3 lists the proof strip; a third row goes in
+  once this URL exists.
 
 **Links**
 
@@ -47,28 +45,32 @@ any repository, and a claim without an artifact gets cut.
 
 ## Featured projects
 
-Three projects, in this order. The order is the argument: a self-hosted
-platform, a shipped mobile app, a credentialed capstone.
+Two projects, not three. The Dealership capstone moved to coursework because it
+was built by following course steps, and a case study with no technical
+decision behind it fails the test in `docs/build-spec.md` §5.
+
+The order is the argument: one solo build carried to deployment, one team
+delivery.
 
 ### 1. Pykes — `pykes`
 
-The flagship. A product with an idea behind it, built to completion with tests
-and deployment, rather than a tutorial followed to the end.
+The flagship. Solo, deployed, tested.
 
 - **Role:** Solo build
 - **Year:** 2026
 - **Tech:** React, Vite, Node, Express, WebSockets, PostgreSQL, Redis, MinIO,
   Caddy, Docker, Kubernetes, GitHub Actions, Playwright
 - **Repo:** https://github.com/settery7/pykes
-- **Cover:** `docs/demo.gif` exists in the repo — export a still frame from it,
-  or capture the feed screen at 1600×1000
-- **Links:** repo above · demo TODO: is this deployed anywhere public, or is
-  the gif the only demo?
+- **Cover:** `docs/demo.gif` exists in the repo — export a still frame, or
+  capture the feed screen at 1600×1000
+- **Links:** repo above · live TODO: deployed on a free tier — which host, and
+  what is the URL? A live link is worth more than any other single item on the
+  site
 
-**Problem.** Indie developers building in public have to choose between
-scattering updates across social platforms they do not control, or paying for a
-hosted service. TODO: replace this with your own reason for starting it — what
-you personally wanted that did not exist. One paragraph, plain terms.
+**Problem.** I wanted a platform where developers could share the work they
+were doing — updates tied to actual projects rather than scattered across
+social platforms nobody controls. Nothing that existed did that without
+charging for it, so the whole thing was built to run on free infrastructure.
 
 **What I built.** A self-hosted build-in-public platform. Developers post
 updates tied to specific projects, and each project renders a pixel-art
@@ -85,129 +87,111 @@ cover the flows that matter, including garden-growth ownership.
 Include the architecture diagram here: Caddy → frontend / API → Postgres,
 Redis, MinIO. This is the diagram that earns the most on the whole site.
 
-**The hard part.** Pick one and explain the decision and why the alternative
-was worse, in about 150 words. TODO — strong candidates visible in the repo:
+**The hard part.** The data layer — PostgreSQL and Redis, and how much of the
+backend had to be shaped around them. TODO: this needs the specific decision
+and the alternative you rejected, in about 150 words. Answer these three and
+the paragraph writes itself:
 
-- Garden-growth ownership. `e2e/tests/garden-growth-ownership.spec.js` exists
-  as a dedicated spec, which suggests the rule of who is allowed to make a
-  garden grow was genuinely difficult to get right.
-- Zero paid services as a hard constraint. Choosing MinIO over S3 and Caddy
-  over a managed certificate service is a real architectural tradeoff with real
-  costs — say what you gave up.
-- The edit-history migration. You added `edit-history` as its own migration
-  after the baseline schema, so post editing was a decision made mid-build.
+1. What did you put in Redis, and why not PostgreSQL? The repo shows it doing
+   both caching and rate limiting, which are different jobs.
+2. Why four separate migrations rather than one schema? `edit-history` and
+   `email-verification-and-digest` arrived after the baseline, so the schema
+   changed mid-build — what forced that?
+3. What broke, or nearly did, before you settled on the current split?
 
-**Result.** TODO — what state is it in? Running somewhere, used by anyone, or
-complete but unhosted? Say so honestly. "Feature-complete and reproducible with
-one `docker compose up`" is a real result and needs no user numbers.
+**Result.** A working hobby project, deployed and running on a free tier. It is
+feature-complete for what it set out to do, and the honest constraint is that
+going further means paying for infrastructure — the zero-cost requirement that
+shaped the architecture is also the ceiling on it.
 
 ---
 
 ### 2. Whaloo — `whaloo`
 
-Proof of a mobile application carried to release readiness. 101 commits.
+A team project carried to release readiness. 101 commits.
 
-- **Role:** TODO — solo, or a team project?
+- **Role:** Project manager on a team build. TODO: this must be precise. What
+  did you personally write? The site presents this to developers, so "project
+  manager" without a code contribution named reads as padding, while "I managed
+  the team and built X and Y" is a genuinely strong claim. If you mostly
+  coordinated, say that — it is still worth showing, just framed as delivery
+  rather than as a code sample.
+- **Team size:** TODO
 - **Year:** 2025
 - **Tech:** Flutter, Dart
 - **Repo:** https://github.com/settery7/whaloo
 - **Cover:** TODO — screenshot of the flashcard or schedule screen from a
   device or emulator
-- **Links:** TODO — was this published to Play Store or TestFlight? The repo
-  contains a Terms and Conditions page, which suggests a release was intended
+- **Links:** none. Never published.
 
-**Problem.** TODO — one paragraph. Students juggling study material across
-separate flashcard, calendar, and to-do apps, in your own words. Who were you
-building this for?
+**Problem.** Students keep their study material spread across separate
+flashcard, calendar, and to-do apps, and none of them talk to each other.
+TODO: one paragraph in your own words — who on the team wanted this, and why.
 
-**What I built.** A Flutter study application combining four tools students
-normally keep in separate apps: a flashcard system with create, edit, and
-review flows backed by a local database; schedule management; a to-do list with
-its own create and edit screens; and a file viewer for study materials. The
-layout is responsive, adapting to tablet as well as phone. Terms and conditions
+**What I built.** A Flutter note-taking and study application that combines
+four tools students normally keep in separate apps: a flashcard system with
+create, edit, and review flows backed by a local database; schedule management;
+a to-do list with its own create and edit screens; and a file viewer for study
+materials. The layout adapts to tablet as well as phone. Terms and conditions
 are included, as the app was built for distribution rather than as an exercise.
 
-**The hard part.** TODO. Good candidates given the code: the local database
-schema for flashcards, the responsive layout split across phone and tablet, or
-state management across four largely independent feature areas.
+**The hard part.** Responsiveness. Everything else came together, but making a
+single Flutter layout work properly across phone and tablet was the real test.
+TODO: expand to about 150 words — what specifically broke at tablet width, what
+you tried first, and what the fix was. The repo has a `Responsive/` directory
+with `dimensions.dart` and `responsive_layout.dart`, so there is a concrete
+approach in there to describe.
 
-**Result.** TODO — was it released, and to whom? If it was never published, say
-that plainly. An honest "built to release readiness, never submitted" is
-stronger than a vague implication that it shipped.
-
----
-
-### 3. Dealership Application — `xrwvm-fullstack_developer_capstone`
-
-The end-to-end pipeline proof: auth, services, containers, CI, deployment.
-Labelled as a capstone in the role field, openly.
-
-- **Role:** IBM Skills Network capstone. TODO: confirm which parts you wrote
-  versus which the course scaffolded — the case study should describe only your
-  work, and being specific about that boundary is more impressive than
-  blurring it
-- **Year:** 2026
-- **Tech:** Django, React, Node/Express, MongoDB, Docker, Kubernetes, GitHub
-  Actions
-- **Repo:** https://github.com/settery7/xrwvm-fullstack_developer_capstone
-  (forked from the IBM Skills Network course repository)
-
-**Problem.** Frame it as the product problem — dealer reviews and inventory —
-not as "a course requirement."
-
-**What I built.** Django authentication, Express API endpoints, a sentiment
-analysis microservice on IBM Code Engine, containerized and deployed to
-Kubernetes with GitHub Actions CI.
-
-**The hard part.** The service boundary — why sentiment analysis lives as its
-own deployable rather than inside the Django app.
-
-**Result.** TODO.
+**Result.** Built to release readiness but never submitted to the Play Store or
+TestFlight. Say that plainly — it is a more credible ending than implying a
+launch that did not happen.
 
 ---
 
-## Secondary projects
+## Coursework
 
-Grid only, no case studies.
+Shown openly as coursework, in a grid, with no case studies. The certificates
+already evidence this work; the value here is honesty about what it is.
 
-- **Simple CPU Simulation** — JavaScript.
+- **Dealership Application** —
+  https://github.com/settery7/xrwvm-fullstack_developer_capstone — IBM Skills
+  Network capstone, built by following the course. Django, React, Node/Express,
+  MongoDB, Docker, Kubernetes, GitHub Actions. Labelled as a capstone.
+- **Simple CPU Simulation** —
   https://github.com/settery7/Simple-CPU-Simulation — Computer Engineering
-  coursework, and it supports the BSCpE identity rather than diluting it.
-- **Number system conversion** — decimal, binary, octal, hex.
-  https://github.com/settery7/Decimal-Binary-Octal-Hex-Conversion — same
-  reasoning. Label both as coursework.
+  coursework. Supports the BSCpE identity rather than diluting it.
+- **Number system conversion** —
+  https://github.com/settery7/Decimal-Binary-Octal-Hex-Conversion — same.
 
-**Cut, and why.** The following were in an earlier draft of this file and are
-not on the site: AI Lead Qualifier and the travel support website, which do not
-exist; the BOSS 2026 Forma LMS work and the Tally-to-Gmail automation, which
-have no artifact; and `e-plantShopping`, `expressBookReviews`, and
-`oaqjp-final-project-emb-ai`, which are forks of IBM course lab repositories
-rather than original builds. The certificates already evidence that coursework
-more credibly than the forks do.
-
-TODO: `tfjzl-final-cloud-app-with-database` is also a course fork, a Django
-app. Currently cut. Reinstate only if you extended it well beyond the lab.
+**Cut, and why.** AI Lead Qualifier and the travel support website do not
+exist. BOSS 2026 and the Tally-to-Gmail automation have no artifact.
+`e-plantShopping`, `expressBookReviews`, `oaqjp-final-project-emb-ai`, and
+`tfjzl-final-cloud-app-with-database` are forks of IBM lab repositories. The
+Ferret9 experience is not being used. `gamigo-exam` is excluded at your
+request.
 
 ---
 
 ## `/play` track — game development
 
-This is the personal track, and it now has real substance. Four projects across
-two engines.
+The personal track. These are prototypes and experiments, and the page says so
+in as many words. An unfinished prototype presented as a prototype is honest
+and interesting; the same thing presented as a finished game is not.
 
-- **gamigo-exam** — https://github.com/settery7/gamigo-exam — Unity, C# with
-  custom shader work (ShaderLab and HLSL). TODO: what was this assessment for,
-  and what did the shaders do? Shader work is the most technically distinctive
-  thing here and deserves the most space.
-- **Tek-Trails (Teknoy Trails)** — https://github.com/settery7/Tek-Trails —
-  Unity, C#. A Pou-inspired virtual pet game that merges study sessions with
-  pet care, with campus navigation to help students learn their way around
-  CIT-U buildings. TODO: confirm this was a team project — the README says
-  "our project" — and say what you were responsible for.
-- **anito** — https://github.com/settery7/anito — Godot, GDScript. TODO: one or
-  two sentences on what it is.
+Suggested framing for the top of the page: *"Things I build when nobody is
+grading them. Mostly unfinished, which is the point."*
+
 - **How To Swim Your Fish** — https://github.com/settery7/HowToSwimYourFish —
-  Godot. TODO: one sentence.
+  Godot. Casual game where you guide a fish using feed to reach the objective.
+  The most complete of the three, so it leads.
+- **Tek-Trails (Teknoy Trails)** — https://github.com/settery7/Tek-Trails —
+  Unity, C#. A Pou-inspired virtual pet that merges study sessions with pet
+  care, plus campus navigation for finding your way around CIT-U buildings.
+  Unfinished and barely playable — label it as an abandoned prototype and let
+  the concept do the work. TODO: team project or solo, and what was your part?
+- **anito** — https://github.com/settery7/anito — Godot, GDScript. Early
+  prototype, needs substantial work. TODO: one sentence on what it is meant to
+  be — the concept is the interesting part when the build is not finished.
 
 Tone here is looser than `/dev`, but the honesty rules still apply.
 
@@ -223,31 +207,30 @@ proof link gets deleted, not padded.
 - **Mobile** — Flutter and Dart, local persistence, responsive layouts.
   Proof: Whaloo.
 - **Deployment and infrastructure** — Docker, Docker Compose, Kubernetes,
-  Caddy, GitHub Actions CI. Proof: Pykes, and the Dealership capstone.
+  Caddy, GitHub Actions CI. Proof: Pykes.
 - **Testing** — Playwright end-to-end suites covering auth, permissions, and
   account recovery. Proof: Pykes.
 
-The "AI and automation" card is gone: no repository contains LLM work. The
-"client delivery" card is gone with it — its only proof was the travel support
-site, which does not exist.
+The "AI and automation" and "client delivery" cards were removed: their only
+proofs were projects that do not exist.
 
 ---
 
 ## Timeline
 
-Reverse chronological. Two to three sentences each. TODO: fill in and pick one
-or two images per entry.
+Reverse chronological, two to three sentences each.
 
-- **2026** — Pykes. IBM Full Stack Developer Professional Certificate and the
-  Flask certificate. The Dealership capstone. TODO: expand into prose, and add
-  anything else from this year.
-- **2025** — Whaloo, across 101 commits. Computer Engineering coursework
-  including the CPU simulation. TODO: expand.
-- **2024 and earlier** — Tek-Trails at Cebu Institute of Technology. TODO:
-  Ferret9 — is this real? It was in an earlier draft of this file as client
-  communication, documentation, and technical support for local and
-  international clients, but that draft also contained two invented projects, so
-  it needs confirming before it goes on the site.
+- **2026** — Graduated BS Computer Engineering from Cebu Institute of
+  Technology – University in May. Earned the IBM Full Stack Developer
+  Professional Certificate along with the Flask and Data Science certificates,
+  and completed the Dealership capstone. Built Pykes and deployed it.
+- **2025** — Whaloo, a Flutter study app built with a team over 101 commits,
+  where I worked as project manager. Computer Engineering coursework including
+  a CPU simulation.
+- **2024 and earlier** — Tek-Trails at Cebu Institute of Technology, a Unity
+  virtual pet game built around study sessions and campus navigation.
+
+TODO: pick one or two images per entry.
 
 ---
 
@@ -255,11 +238,11 @@ or two images per entry.
 
 **Heading.** Get in touch
 
-**Body.** I'm looking for full-stack or mobile development work. The fastest way
-to reach me is email, and I read everything that arrives.
+**Body.** I'm looking for full-stack or mobile development work. The fastest
+way to reach me is email, and I read everything that arrives.
 
-TODO: edit this into your own voice, and only name a response time if you will
-actually honour it.
+Approved. No response time is named, which is correct — do not add one unless
+it will actually be honoured.
 
 ---
 
