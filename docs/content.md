@@ -16,12 +16,24 @@ aspirational. If a project is not on this list, it does not go on the site.
 - **Location:** Cebu, Philippines
 - **Education:** BS Computer Engineering, Cebu Institute of Technology –
   University. Graduated May 2026.
-- **One-liner:** Computer Engineering graduate building full-stack web and
-  mobile applications — React, Node, PostgreSQL, Flutter — and self-hosting
-  them end to end with Docker.
+- **One-liner:** Computer Engineering graduate building full-stack web, mobile
+  and embedded systems — React, Node, PostgreSQL, Flutter, ESP32 — and
+  self-hosting them end to end with Docker.
 
-The one-liner makes no AI or LLM claim. There is no LLM work in any
-repository, and a claim without an artifact gets cut.
+**Correction, and why the one-liner changed.** An earlier version of this file
+claimed there was no LLM work in any repository, and stripped AI from the
+one-liner on that basis. That was wrong once RemGlove came to light:
+`remgloves_app/lib/services/ai_summary_service.dart` calls Gemini 2.5 Flash
+Lite to turn gesture logs into readable summaries. The earlier removal was
+still correct at the time — it cut a claim whose only support was a project
+that does not exist — but the reasoning no longer holds.
+
+AI is deliberately still **not** in the one-liner. One Gemini call
+summarising logs is real and worth a capability card with a proof link, but it
+is not what this work is mostly about, and leading with it would be the same
+overclaiming the earlier draft was guilty of. Embedded is in the one-liner
+instead, because the thesis is a genuine hardware project and it is the thing
+that makes the Computer Engineering degree mean something to a reader.
 
 **Credentials** — two, both verified.
 
@@ -230,37 +242,66 @@ The Computer Engineering project. Everything else on this site is software;
 this one has hardware in it, which is what makes the degree mean something to
 a reader.
 
-- **Role:** Team of three. Second-highest contributor — 10 commits of 26, with
-  marjorie033 on 13 and pieckaa on 3. TODO: which parts were yours? The repo
-  spans C++ firmware, a C# component and some Dart, so "I wrote the sensor
-  reading and the Bluetooth layer" is a very different claim from "I built the
-  companion app", and only you know which is true.
+- **Role:** Thesis capstone, team of three. I built the BLE layer and the AI.
+  Second-highest contributor at 10 commits of 26.
 - **Year:** 2026, March to May
-- **Tech:** C++, C, flex sensors, Bluetooth, Wi-Fi. Dart is also present,
-  which suggests a companion mobile app — TODO: confirm.
+- **Tech:** ESP32, BLE over the Nordic UART service, Flutter, MQTT, Gemini
+  API, flex sensors. A Unity hand model is embedded in the Flutter app through
+  FlutterUnityIntegration for live visualisation.
 - **Repo:** https://github.com/marjorie033/RemGloves-Software
   (owned by a teammate; say so plainly rather than implying it is yours)
-- **Cover:** TODO — a photograph of the actual glove would be the single most
-  valuable image on this site. Nothing else you have is physical.
+- **Cover:** `public/covers/remglove.webp` — the hardware photo. Five flex
+  sensors down the fingers, the wiring harness, and the 3D-printed ESP32
+  enclosure. This is the only physical object on the site and the only image
+  a reader will remember.
 
-**Problem.** Touch screens and voice assistants both assume things about the
-person using them. RemGlove is a glove that reads American Sign Language hand
-signs through flex sensors and uses them to control TVs, lights and fans over
-Bluetooth or Wi-Fi — hands-free and contactless, for people that touch and
-voice interfaces leave out.
+**Problem.** Touch screens and voice assistants both assume something about
+the person using them — a free hand, or a voice the device recognises.
+RemGlove is a glove that reads American Sign Language hand signs through flex
+sensors and uses them to control TVs, lights and fans over BLE, hands-free and
+contactless, for the people those two interfaces leave out.
 
-TODO: replace with the real motivation. Was this a thesis, a capstone, or
-something you chose? Who was it for?
+TODO: one line on why the team chose this, if there is a story there.
 
-**What I built.** TODO — your part specifically, not the team's.
+**What I built.** My two pieces were the wireless layer and the AI.
 
-**The hard part.** TODO. Flex sensor output is noisy and drifts, and mapping
-a continuous signal to discrete ASL signs reliably is a genuinely hard
-problem. If that was your area, it is a strong paragraph. If you worked on the
-wireless side, the interesting question is how you handled the device staying
-connected.
+The glove talks to the phone over BLE using the Nordic UART service, with the
+ESP32 advertising as `RemGloves`. The Flutter side exposes connection state as
+a small state machine — idle, scanning, connecting, connected, disconnected,
+error — and publishes three streams: live glove data, status, and calibration.
+Each finger arrives both as a raw bend percentage and as a settled bent or
+straight state, with calibration handled per glove because no two flex sensors
+read alike.
 
-**Result.** TODO — did it work? What can it actually control today?
+The AI layer summarises gesture logs. It sends aggregate counts — devices
+controlled, commands issued, calibrations run, over a date range — to Gemini
+2.5 Flash Lite and returns a short readable report rather than a table. It
+retries once on failure, and the API key lives in a gitignored
+`config/secrets.dart`, so it is not in the public repository.
+
+**The hard part.** Draft from the code — Clayne to confirm it reads true:
+
+> The obvious way to send hand data over BLE is to stream five analog sensor
+> values continuously and work out the gesture on the phone. We do not do
+> that. The ESP32 decides for itself whether each finger is bent, and packs
+> the answer into five bits — bit 0 is the thumb, bit 4 is the pinky — so a
+> whole hand position travels as a single number and prints as something like
+> `11010`.
+>
+> That moves the decision to the device and shrinks the payload to almost
+> nothing, which matters on a battery-powered board holding a BLE connection.
+> It also means the phone never has to guess: thirty-two hand positions are
+> possible and each one arrives unambiguous. The cost is that thresholds have
+> to be right, so calibration is per glove rather than a constant in the
+> firmware.
+
+TODO: confirm, and add what went wrong before you settled on this. If you
+first streamed raw values and hit throughput or battery problems, say so — the
+version with the failure in it is better than the version without.
+
+**Result.** It works. TODO: what does it control today, and did it pass? One
+concrete sentence — "controls a TV, two lights and a fan" is worth more than
+an adjective.
 
 ---
 

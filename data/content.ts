@@ -49,11 +49,11 @@ export const projects: Project[] = [
     slug: "remglove",
     title: "RemGlove",
     outcome:
-      "A smart glove that reads ASL hand signs and controls TVs, lights and fans without touch or voice.",
-    role: "Team of three, second-highest contributor",
+      "A smart glove that reads ASL hand signs through flex sensors and controls TVs, lights and fans without touch or voice.",
+    role: "Thesis capstone, team of three — I built the BLE layer and the AI",
     year: "2026",
-    tech: ["C++", "Embedded", "Flex sensors", "Bluetooth", "Wi-Fi"],
-    cover: null,
+    tech: ["ESP32", "BLE", "Flutter", "MQTT", "Gemini API"],
+    cover: "/covers/remglove.webp",
     links: { repo: "https://github.com/marjorie033/RemGloves-Software" },
     featured: true,
     track: "dev",
@@ -123,12 +123,30 @@ export const capabilities = [
     proof: "Pykes",
     href: "https://github.com/settery7/pykes",
   },
+  {
+    title: "Embedded and wireless",
+    detail:
+      "ESP32 firmware, BLE over the Nordic UART service, flex sensor calibration, MQTT device control.",
+    proof: "RemGlove",
+    href: "https://github.com/marjorie033/RemGloves-Software",
+  },
+  {
+    title: "LLM integration",
+    detail:
+      "Gemini API summarising gesture logs into readable reports, with retries and keys kept out of the repo.",
+    proof: "RemGlove",
+    href: "https://github.com/marjorie033/RemGloves-Software",
+  },
 ];
 
 export const identity = {
   name: "Clayne Cezclark Nable",
+  /* Embedded is in here because the thesis is real hardware and it is what
+     makes the Computer Engineering degree mean something to a reader. AI is
+     deliberately left out: one Gemini call summarising logs earns a
+     capability card with a proof link, not the headline. */
   oneLiner:
-    "Computer Engineering graduate building full-stack web and mobile applications — React, Node, PostgreSQL, Flutter — and self-hosting them end to end with Docker.",
+    "Computer Engineering graduate building full-stack web, mobile and embedded systems — React, Node, PostgreSQL, Flutter, ESP32 — and self-hosting them end to end with Docker.",
   location: "Cebu, Philippines",
   email: "n.cezclayne@gmail.com",
   github: "https://github.com/settery7",
