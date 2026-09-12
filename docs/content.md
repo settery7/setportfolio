@@ -315,14 +315,14 @@ logged and 99 calibrations across the device list, with 373 gestures in a
 single week. A smart light and a smart fan are controllable from the glove,
 and the TV is the most-used device in the history log.
 
-TODO: two things to settle before this ships.
+**The thesis passed and was accepted.** That is now stated in the case study.
 
-1. The Live Device Status screen lists Smart TV as "Coming soon", but the
-   analytics call the TV the top device and the history shows `TV: HOME`
-   entries. Which is true today? The result sentence should say exactly what
-   a visitor could watch it do.
-2. Did the thesis pass, and is there a defence date or grade worth naming?
-   An accepted capstone is a fact worth one short clause.
+TODO: one thing still open. The Live Device Status screen lists Smart TV as
+"Coming soon", but the analytics call the TV the top device and the history
+shows `TV: HOME` entries. Which is true today? The result paragraph currently
+says the TV is the most-used device in the history log, which is accurate
+about the log but says nothing about whether TV control works now. Worth one
+sentence either way.
 
 ---
 

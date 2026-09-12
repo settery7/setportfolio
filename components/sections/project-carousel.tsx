@@ -14,6 +14,7 @@
    - prefers-reduced-motion removes the transition, not the functionality. */
 
 import Image from "next/image";
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { projects } from "@/data/content";
 import RotatingCover from "@/components/rotating-cover";
@@ -192,6 +193,15 @@ export default function ProjectCarousel() {
                 </ul>
 
                 <div className="mt-4 flex flex-wrap gap-4 text-sm">
+                  {/* Always present — build-spec §4. The case study is where
+                      the reasoning lives, so it leads the link row. */}
+                  <Link
+                    href={`/dev/projects/${project.slug}`}
+                    tabIndex={isActive ? 0 : -1}
+                    className="font-semibold underline underline-offset-4"
+                  >
+                    Case study
+                  </Link>
                   {project.links.live ? (
                     <a
                       href={project.links.live}
