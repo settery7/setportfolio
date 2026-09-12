@@ -45,6 +45,19 @@ export const projects: Project[] = [
     featured: true,
     track: "dev",
   },
+  {
+    slug: "remglove",
+    title: "RemGlove",
+    outcome:
+      "A smart glove that reads ASL hand signs and controls TVs, lights and fans without touch or voice.",
+    role: "Team of three, second-highest contributor",
+    year: "2026",
+    tech: ["C++", "Embedded", "Flex sensors", "Bluetooth", "Wi-Fi"],
+    cover: null,
+    links: { repo: "https://github.com/marjorie033/RemGloves-Software" },
+    featured: true,
+    track: "dev",
+  },
 ];
 
 /* Shown openly as coursework. No case studies — the certificates already

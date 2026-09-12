@@ -23,9 +23,12 @@ export default function Featured() {
         {featured.map((project, index) => (
           <article
             key={project.slug}
+            /* Bento, not a uniform grid: the biggest tile is the strongest
+               project. Pykes takes two columns, Whaloo one, and a third card
+               runs full width rather than sitting alone beside two gaps. */
             className={`group flex flex-col rounded-lg border border-edge bg-surface/40 p-6 transition-colors duration-200 hover:border-signal ${
               index === 0 ? "md:col-span-2" : ""
-            }`}
+            } ${index === 2 ? "md:col-span-3" : ""}`}
           >
             {/* Falls back to a dashed placeholder when a cover is missing,
                 rather than a broken image or a stock photograph. */}

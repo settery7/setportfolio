@@ -121,10 +121,17 @@ credential link is worse than no strip at all.
 
 **Purpose.** The most important section on the site.
 
-**Content.** Two projects — Pykes and Whaloo — sourced from `data/projects.ts`.
-The Dealership capstone is deliberately not here; it moved to the coursework
-grid because it was built by following course steps and has no technical
-decision to anchor a case study. Do not pad this section back to three.
+**Content.** Three projects — Pykes, Whaloo and RemGlove — sourced from
+`data/content.ts`.
+
+The Dealership capstone is deliberately not among them. It moved to the
+coursework grid because it was built by following course steps and has no
+technical decision to anchor a case study. RemGlove is here on the opposite
+reasoning: it is original engineering with hardware in it, and it is the only
+thing on the site that evidences the Computer Engineering degree. The test for
+this section is whether a project has a real decision behind it, not how many
+slots are open.
+
 Each card:
 cover image, title, one-line outcome, three to five tech chips, and two links —
 `Case study` (internal, always present) and `Live` or `Repo` (external, when

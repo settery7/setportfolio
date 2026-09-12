@@ -224,6 +224,46 @@ launch that did not happen.
 
 ---
 
+### 3. RemGlove — `RemGloves-Software`
+
+The Computer Engineering project. Everything else on this site is software;
+this one has hardware in it, which is what makes the degree mean something to
+a reader.
+
+- **Role:** Team of three. Second-highest contributor — 10 commits of 26, with
+  marjorie033 on 13 and pieckaa on 3. TODO: which parts were yours? The repo
+  spans C++ firmware, a C# component and some Dart, so "I wrote the sensor
+  reading and the Bluetooth layer" is a very different claim from "I built the
+  companion app", and only you know which is true.
+- **Year:** 2026, March to May
+- **Tech:** C++, C, flex sensors, Bluetooth, Wi-Fi. Dart is also present,
+  which suggests a companion mobile app — TODO: confirm.
+- **Repo:** https://github.com/marjorie033/RemGloves-Software
+  (owned by a teammate; say so plainly rather than implying it is yours)
+- **Cover:** TODO — a photograph of the actual glove would be the single most
+  valuable image on this site. Nothing else you have is physical.
+
+**Problem.** Touch screens and voice assistants both assume things about the
+person using them. RemGlove is a glove that reads American Sign Language hand
+signs through flex sensors and uses them to control TVs, lights and fans over
+Bluetooth or Wi-Fi — hands-free and contactless, for people that touch and
+voice interfaces leave out.
+
+TODO: replace with the real motivation. Was this a thesis, a capstone, or
+something you chose? Who was it for?
+
+**What I built.** TODO — your part specifically, not the team's.
+
+**The hard part.** TODO. Flex sensor output is noisy and drifts, and mapping
+a continuous signal to discrete ASL signs reliably is a genuinely hard
+problem. If that was your area, it is a strong paragraph. If you worked on the
+wireless side, the interesting question is how you handled the device staying
+connected.
+
+**Result.** TODO — did it work? What can it actually control today?
+
+---
+
 ## Coursework
 
 Shown openly as coursework, in a grid, with no case studies. The certificates
