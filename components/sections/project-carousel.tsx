@@ -16,6 +16,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { projects } from "@/data/content";
+import RotatingCover from "@/components/rotating-cover";
 
 const featured = projects.filter((p) => p.featured);
 
@@ -152,7 +153,17 @@ export default function ProjectCarousel() {
                   pointerEvents: distance <= 1 ? "auto" : "none",
                 }}
               >
-                {project.cover ? (
+                {project.cover && project.gallery ? (
+                  /* Two images, cross-faded. RemGlove is the only project
+                     where one picture cannot carry it: the glove alone reads
+                     as electronics, the app alone as any Flutter UI. */
+                  <RotatingCover
+                    cover={project.cover}
+                    gallery={project.gallery}
+                    title={project.title}
+                    active={isActive}
+                  />
+                ) : project.cover ? (
                   <Image
                     src={project.cover}
                     alt={`${project.title} — screenshot of the running application`}

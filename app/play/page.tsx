@@ -31,8 +31,9 @@ const prototypes = [
   {
     title: "Tek-Trails",
     engine: "Unity",
-    note: "A virtual pet that merges study sessions with pet care, plus campus navigation around CIT-U. Team project, abandoned prototype.",
+    note: "A virtual pet that merges study sessions with pet care, plus campus navigation around CIT-U. Team project where I was lead developer and project manager. Abandoned prototype.",
     href: "https://github.com/settery7/Tek-Trails",
+    cover: "/covers/tektrails.webp",
   },
   {
     title: "anito",
