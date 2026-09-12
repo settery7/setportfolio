@@ -104,12 +104,21 @@ export default function ProjectCarousel() {
           height tall enough for the longest card. Too short and the controls
           below end up underneath the card, out of reach. */}
       <div
-        className="touch-pan-y overflow-hidden"
+        /* select-none stops a drag from painting a text selection across the
+           cards, and the dragStart guard stops the browser picking an image
+           or a link up as a native drag ghost. Both happen on any pointer
+           drag otherwise, and both look broken.
+
+           The cost is that project text inside the carousel cannot be
+           selected or copied. Every link is still a real link, so nothing
+           becomes unreachable. */
+        className="touch-pan-y select-none overflow-hidden"
         onPointerDown={onPointerDown}
         onPointerUp={onPointerUp}
         onPointerCancel={() => {
           dragStart.current = null;
         }}
+        onDragStart={(event) => event.preventDefault()}
       >
         <div className="relative h-[41rem] sm:h-[38rem] [perspective:1600px] [transform-style:preserve-3d]">
           {featured.map((project, index) => {
@@ -149,6 +158,7 @@ export default function ProjectCarousel() {
                     alt={`${project.title} — screenshot of the running application`}
                     width={1600}
                     height={1000}
+                    draggable={false}
                     className="mb-4 aspect-[16/10] w-full rounded border border-edge object-cover"
                   />
                 ) : null}
