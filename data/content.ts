@@ -120,10 +120,13 @@ export const identity = {
   email: "n.cezclayne@gmail.com",
   github: "https://github.com/settery7",
   linkedin: "https://www.linkedin.com/in/settery/",
-  /* Flip to true once the exported CV is copied to public/clayne-nable-cv.pdf.
-     Until then the hero omits the button rather than shipping a 404. */
-  cvAvailable: false,
+  /* public/clayne-nable-cv.pdf exists, so the hero renders the download. If
+     the file is ever removed, set this back to false rather than shipping a
+     link that 404s. */
+  cvAvailable: true,
   cvPath: "/clayne-nable-cv.pdf",
-  portrait: "/portrait.jpg",
+  /* Background-removed cutout, 1280×1280 WebP with alpha, 101KB. Converted
+     from the 3.85MB source PNG now kept in to-import/. */
+  portrait: "/portrait.webp",
   portraitAvailable: true,
 };

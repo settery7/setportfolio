@@ -45,7 +45,11 @@ export default function Hero() {
           width={640}
           height={640}
           priority
-          className="order-first w-full max-w-xs justify-self-center rounded-lg border border-edge object-cover md:order-none md:max-w-none"
+          /* No border or rounding: the portrait is a cutout on transparency,
+             so a frame would box in empty space. It sits directly on --ink.
+             The mask fades the bottom edge, where the square crop otherwise
+             ends in a hard horizontal cut across the shoulders. */
+          className="order-first w-full max-w-[16rem] justify-self-center object-contain [mask-image:linear-gradient(to_bottom,black_72%,transparent_98%)] md:order-none md:max-w-none"
         />
       ) : null}
     </section>
