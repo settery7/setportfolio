@@ -22,8 +22,9 @@ const prototypes = [
   {
     title: "How To Swim Your Fish",
     engine: "Godot",
-    note: "A hypercasual game where you guide a fish with feed to reach the objective. Built for a game jam, where it placed 7th for theme implementation.",
-    badge: "Game jam — 7th, theme implementation",
+    note: "A hypercasual game where you guide a fish with feed to reach the objective, built with Joprax and Rei-sama077 for Mini Jame Gam #51. The theme put speakers behind the current pushing the fish around.",
+    badge: "Mini Jame Gam #51 — 7th, theme implementation",
+    badgeHref: "https://itch.io/jam/mini-jame-gam-51/rate/4274527",
     href: "https://github.com/settery7/HowToSwimYourFish",
     cover: "/covers/hty.webp",
   },
@@ -69,11 +70,18 @@ export default function PlayPage() {
                 {prototype.engine}
               </p>
               {/* The one placement on the site, so it carries --signal here.
-                  Nothing else on this page competes for the accent. */}
+                  Nothing else on this page competes for the accent. It links
+                  to the results table, which is what turns it from a claim
+                  into proof — the standard every other line is held to. */}
               {"badge" in prototype && prototype.badge ? (
-                <p className="mt-2 inline-block rounded-full border border-signal px-3 py-1 text-xs text-signal">
+                <a
+                  href={prototype.badgeHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-block rounded-full border border-signal px-3 py-1 text-xs text-signal hover:bg-signal hover:text-ink"
+                >
                   {prototype.badge}
-                </p>
+                </a>
               ) : null}
               <p className="measure mt-2 leading-relaxed text-muted">
                 {prototype.note}

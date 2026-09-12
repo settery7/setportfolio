@@ -264,14 +264,29 @@ grading them. Mostly unfinished, which is the point."*
   has the best art in the whole asset set, and it is the only thing on the
   site that placed in a competition.
 
-  This is the one badge on the page and it carries `--signal`. State the
-  placement exactly as it was — 7th in theme implementation, not "won" — since
-  the precise version is both true and more credible.
+  **Verified.** Results page:
+  https://itch.io/jam/mini-jame-gam-51/rate/4274527 — Mini Jame Gam #51,
+  submitted by Settery, Joprax and Rei-sama077, ranked from 14 ratings:
 
-  TODO: which jam, and is there a results page to link? A verifiable link
-  turns this from a claim into proof, which is the whole standard the rest of
-  the site is held to. If it was the Mini Jam series, the edition number and
-  its itch.io results page would do it.
+  | Criteria | Rank | Score |
+  | --- | --- | --- |
+  | Theme Implementation | **#7** | 4.286 |
+  | Gameplay | #11 | 3.286 |
+  | Fun Factor | #25 | 3.071 |
+  | Overall | #32 | 3.262 |
+  | Audio | #37 | 3.071 |
+  | Visuals | #50 | 3.143 |
+  | Special Object Implementation | #72 | 2.714 |
+
+  Theme implementation is by a distance the best category, so that is the one
+  to name — and it must always be named *with* its category. "7th in the jam"
+  would be false; overall was #32. The badge links to the table above, so a
+  sceptical reader can check it in one click, and the precise claim survives
+  that click where a loose one would not.
+
+  This was a **team entry**, and the page says so. The jam theme put speakers
+  behind the current pushing the fish around, which is a nice concrete detail
+  worth keeping.
 - **Tek-Trails (Teknoy Trails)** — https://github.com/settery7/Tek-Trails —
   Unity, C#. A Pou-inspired virtual pet that merges study sessions with pet
   care, plus campus navigation for finding your way around CIT-U buildings.
