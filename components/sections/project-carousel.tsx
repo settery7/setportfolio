@@ -19,15 +19,46 @@ import { projects } from "@/data/content";
 
 const featured = projects.filter((p) => p.featured);
 
+/* A pointer has to travel this far before it counts as a swipe rather than a
+   click. Below it, a drag on the active card is still a click on whatever
+   sits under the finger — otherwise the links become impossible to press. */
+const SWIPE_THRESHOLD = 45;
+
 export default function ProjectCarousel() {
   const [active, setActive] = useState(0);
   const regionRef = useRef<HTMLDivElement>(null);
+  const dragStart = useRef<number | null>(null);
+  const swiped = useRef(false);
   const count = featured.length;
 
   const go = useCallback(
     (delta: number) => setActive((i) => (i + delta + count) % count),
     [count],
   );
+
+  /* Swipe, via pointer events so one code path covers touch, pen and a mouse
+     drag. touch-action below keeps vertical scrolling with the page. */
+  const onPointerDown = (event: React.PointerEvent) => {
+    dragStart.current = event.clientX;
+  };
+
+  const onPointerUp = (event: React.PointerEvent) => {
+    const start = dragStart.current;
+    dragStart.current = null;
+    if (start === null) return;
+    const travelled = event.clientX - start;
+    if (Math.abs(travelled) < SWIPE_THRESHOLD) return;
+    /* A swipe that began on a neighbouring card would otherwise also fire
+       that card's click, moving two places at once. Swallow the click that
+       follows this gesture. */
+    swiped.current = true;
+    window.setTimeout(() => {
+      swiped.current = false;
+    }, 0);
+    /* Dragging left pulls the next card in, matching how a physical stack
+       of cards behaves. */
+    go(travelled < 0 ? 1 : -1);
+  };
 
   useEffect(() => {
     const node = regionRef.current;
@@ -72,7 +103,14 @@ export default function ProjectCarousel() {
           Cards are absolutely positioned, so the stage also needs an explicit
           height tall enough for the longest card. Too short and the controls
           below end up underneath the card, out of reach. */}
-      <div className="overflow-hidden">
+      <div
+        className="touch-pan-y overflow-hidden"
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
+        onPointerCancel={() => {
+          dragStart.current = null;
+        }}
+      >
         <div className="relative h-[41rem] sm:h-[38rem] [perspective:1600px] [transform-style:preserve-3d]">
           {featured.map((project, index) => {
             const offset = offsetOf(index);
@@ -82,12 +120,27 @@ export default function ProjectCarousel() {
               <article
                 key={project.slug}
                 aria-hidden={!isActive}
-                className="absolute left-1/2 top-0 w-[min(38rem,85vw)] rounded-lg border border-edge bg-surface p-5 transition-transform duration-500 ease-out motion-reduce:transition-none"
+                /* Clicking a neighbour brings it to the centre. Only the two
+                   visible neighbours accept pointer events; anything further
+                   back stays inert so a stray click cannot hit a card nobody
+                   can see. Keyboard users have the arrow keys and the buttons
+                   below, so no focusable element is added to a hidden card. */
+                onClick={
+                  isActive
+                    ? undefined
+                    : () => {
+                        if (swiped.current) return;
+                        setActive(index);
+                      }
+                }
+                className={`absolute left-1/2 top-0 w-[min(38rem,85vw)] rounded-lg border border-edge bg-surface p-5 transition-transform duration-500 ease-out motion-reduce:transition-none ${
+                  isActive ? "" : "cursor-pointer"
+                }`}
                 style={{
                   transform: `translateX(-50%) translateX(${offset * 58}%) translateZ(${distance * -320}px) rotateY(${offset * -32}deg)`,
                   opacity: distance > 1 ? 0 : isActive ? 1 : 0.45,
                   zIndex: count - distance,
-                  pointerEvents: isActive ? "auto" : "none",
+                  pointerEvents: distance <= 1 ? "auto" : "none",
                 }}
               >
                 {project.cover ? (
