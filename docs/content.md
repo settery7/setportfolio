@@ -23,16 +23,15 @@ aspirational. If a project is not on this list, it does not go on the site.
 The one-liner makes no AI or LLM claim. There is no LLM work in any
 repository, and a claim without an artifact gets cut.
 
-**Credentials** — both are held.
+**Credentials** — two, both verified.
 
 - IBM Full Stack Developer Professional Certificate —
   https://www.coursera.org/account/accomplishments/professional-cert/CBEGXGF2N74J
 - Developing AI Applications with Python and Flask (IBM) —
   https://www.coursera.org/account/accomplishments/verify/FK33G0AW51Q0
-- Python for Data Science, AI & Development (IBM) —
-  TODO: credential URL. Confirmed held, but the verification link is still
-  missing. `docs/build-spec.md` §3 lists the proof strip; a third row goes in
-  once this URL exists.
+
+Python for Data Science, AI & Development is **not** held. An earlier draft of
+this file listed it; it has been removed. Do not reinstate it.
 
 **Links**
 
@@ -63,9 +62,20 @@ The flagship. Solo, deployed, tested.
 - **Repo:** https://github.com/settery7/pykes
 - **Cover:** `docs/demo.gif` exists in the repo — export a still frame, or
   capture the feed screen at 1600×1000
-- **Links:** repo above · live TODO: deployed on a free tier — which host, and
-  what is the URL? A live link is worth more than any other single item on the
-  site
+- **Links:** repo above · live demo **unverified — do not publish yet.**
+  The URL given was `https://pykes.n-cezclayne.workers.dev/`, which does not
+  resolve: NXDOMAIN on both that host and the parent `n-cezclayne.workers.dev`,
+  checked from a working connection. Two things to sort out before this goes on
+  the site:
+
+  1. TODO: is the deployment still up? If it was torn down, either redeploy or
+     ship the case study with repo and demo gif only. A dead link on the
+     flagship project is worse than no link — `docs/build-spec.md` §3.
+  2. TODO: `workers.dev` is Cloudflare Workers, a serverless edge runtime that
+     cannot run Docker Compose, PostgreSQL, Redis, MinIO, or Caddy. So whatever
+     was deployed there is not the architecture described below — most likely
+     the static React frontend alone. Say which, because the case study has to
+     describe what a visitor actually reaches.
 
 **Problem.** I wanted a platform where developers could share the work they
 were doing — updates tied to actual projects rather than scattered across
@@ -87,22 +97,26 @@ cover the flows that matter, including garden-growth ownership.
 Include the architecture diagram here: Caddy → frontend / API → Postgres,
 Redis, MinIO. This is the diagram that earns the most on the whole site.
 
-**The hard part.** The data layer — PostgreSQL and Redis, and how much of the
-backend had to be shaped around them. TODO: this needs the specific decision
-and the alternative you rejected, in about 150 words. Answer these three and
-the paragraph writes itself:
+**The hard part.** Running PostgreSQL and Redis together inside free-tier
+resource limits. The zero-cost constraint was not a preference, it was the
+whole design brief, and it decided the shape of the backend: what could be
+kept in memory, what had to be persisted, and how much of either the host
+would tolerate before falling over.
 
-1. What did you put in Redis, and why not PostgreSQL? The repo shows it doing
-   both caching and rate limiting, which are different jobs.
-2. Why four separate migrations rather than one schema? `edit-history` and
-   `email-verification-and-digest` arrived after the baseline, so the schema
-   changed mid-build — what forced that?
-3. What broke, or nearly did, before you settled on the current split?
+TODO: expand to about 150 words with one concrete decision and the alternative
+you rejected. The specific thing to describe is where you drew the line between
+Redis and PostgreSQL under those limits — the repo has Redis doing both caching
+and rate limiting, which are different jobs with different failure modes. What
+did you try first, what ran out of resources, and what did you settle on?
 
-**Result.** A working hobby project, deployed and running on a free tier. It is
-feature-complete for what it set out to do, and the honest constraint is that
-going further means paying for infrastructure — the zero-cost requirement that
-shaped the architecture is also the ceiling on it.
+**Result.** A working hobby project. It is feature-complete for what it set out
+to do, and the honest constraint is that going further means paying for
+infrastructure — the zero-cost requirement that shaped the architecture is also
+the ceiling on it.
+
+TODO: adjust this once the deployment question above is settled. If it is live,
+say so and link it. If it is not, "feature-complete and reproducible with one
+`docker compose up`" is a real result and needs no user numbers.
 
 ---
 
@@ -110,12 +124,9 @@ shaped the architecture is also the ceiling on it.
 
 A team project carried to release readiness. 101 commits.
 
-- **Role:** Project manager on a team build. TODO: this must be precise. What
-  did you personally write? The site presents this to developers, so "project
-  manager" without a code contribution named reads as padding, while "I managed
-  the team and built X and Y" is a genuinely strong claim. If you mostly
-  coordinated, say that — it is still worth showing, just framed as delivery
-  rather than as a code sample.
+- **Role:** Project manager, and wrote most of the code. Lead both ways, which
+  is the strongest version of this claim — say it in that order, because
+  "project manager" alone would undersell the engineering.
 - **Team size:** TODO
 - **Year:** 2025
 - **Tech:** Flutter, Dart
@@ -135,12 +146,16 @@ a to-do list with its own create and edit screens; and a file viewer for study
 materials. The layout adapts to tablet as well as phone. Terms and conditions
 are included, as the app was built for distribution rather than as an exercise.
 
-**The hard part.** Responsiveness. Everything else came together, but making a
-single Flutter layout work properly across phone and tablet was the real test.
-TODO: expand to about 150 words — what specifically broke at tablet width, what
-you tried first, and what the fix was. The repo has a `Responsive/` directory
-with `dimensions.dart` and `responsive_layout.dart`, so there is a concrete
-approach in there to describe.
+**The hard part.** Responsiveness. Everything else came together, but one
+Flutter layout working across phone and tablet meant a constant stream of
+overflow warnings — the striped bars that appear the moment a row or column
+asks for more space than the screen will give it.
+
+TODO: expand to about 150 words. Name the screen that fought hardest — the
+schedule and to-do pages are the biggest files in the repo, so probably one of
+those — and describe the fix. The `Responsive/` directory with
+`dimensions.dart` and `responsive_layout.dart` is the approach you landed on;
+say what you were doing before that and why it did not hold.
 
 **Result.** Built to release readiness but never submitted to the Play Store or
 TestFlight. Say that plainly — it is a more credible ending than implying a
@@ -187,11 +202,14 @@ grading them. Mostly unfinished, which is the point."*
 - **Tek-Trails (Teknoy Trails)** — https://github.com/settery7/Tek-Trails —
   Unity, C#. A Pou-inspired virtual pet that merges study sessions with pet
   care, plus campus navigation for finding your way around CIT-U buildings.
-  Unfinished and barely playable — label it as an abandoned prototype and let
-  the concept do the work. TODO: team project or solo, and what was your part?
-- **anito** — https://github.com/settery7/anito — Godot, GDScript. Early
-  prototype, needs substantial work. TODO: one sentence on what it is meant to
-  be — the concept is the interesting part when the build is not finished.
+  A team project. Unfinished and barely playable — label it as an abandoned
+  prototype and let the concept do the work. TODO: what was your part on the
+  team?
+- **anito** — https://github.com/settery7/anito — Godot, GDScript. An RPG built
+  around mythical creatures. Early prototype, needs substantial work. The name
+  is well chosen and worth a line: *anito* are the ancestral spirits of
+  pre-colonial Philippine belief. TODO: confirm that reading is what you
+  intended before it goes on the page.
 
 Tone here is looser than `/dev`, but the honesty rules still apply.
 
@@ -222,11 +240,11 @@ Reverse chronological, two to three sentences each.
 
 - **2026** — Graduated BS Computer Engineering from Cebu Institute of
   Technology – University in May. Earned the IBM Full Stack Developer
-  Professional Certificate along with the Flask and Data Science certificates,
-  and completed the Dealership capstone. Built Pykes and deployed it.
+  Professional Certificate and the Developing AI Applications with Python and
+  Flask certificate, and completed the Dealership capstone. Built Pykes.
 - **2025** — Whaloo, a Flutter study app built with a team over 101 commits,
-  where I worked as project manager. Computer Engineering coursework including
-  a CPU simulation.
+  where I ran the project and wrote most of the code. Computer Engineering
+  coursework including a CPU simulation.
 - **2024 and earlier** — Tek-Trails at Cebu Institute of Technology, a Unity
   virtual pet game built around study sessions and campus navigation.
 

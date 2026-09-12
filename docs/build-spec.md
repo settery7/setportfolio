@@ -98,15 +98,17 @@ animation.
 years of experience; this one rewards range and evidence, which is the stronger
 hand here.
 
-**Content.** A single row, five items, each with a label and a proof link:
+**Content.** A single row, four items, each with a label and a proof link:
 
 | Item | Proof |
 | --- | --- |
 | IBM Full Stack Developer Professional Certificate | Credential URL |
 | Developing AI Applications with Python and Flask (IBM) | Credential URL |
-| Python for Data Science, AI & Development (IBM) | Credential URL — still missing |
-| BSc Computer Engineering — Cebu Institute of Technology | — |
+| BS Computer Engineering — Cebu Institute of Technology | — |
 | Open source / GitHub | `github.com/settery7` |
+
+Only two certificates exist. Python for Data Science, AI & Development is not
+held — an earlier draft claimed it. Do not add a fifth row.
 
 **Behaviour.** Static. Horizontal scroll on mobile, snap-aligned.
 
