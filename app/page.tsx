@@ -1,74 +1,42 @@
-/* Phase 1 scaffold check. This page exists only to prove the tokens and fonts
-   are wired correctly, and is replaced entirely by the fork screen in
-   docs/build-spec.md §0. No sections, no motion. */
+/* Placeholder for the fork screen — docs/build-spec.md §0 builds this properly
+   in Phase 2, with the split panels and the single orchestrated reveal.
 
-const tokens = [
-  { name: "ink", value: "#04211D", use: "page base" },
-  { name: "surface", value: "#0A302A", use: "raised cards and panels" },
-  { name: "edge", value: "#174A41", use: "hairlines, card borders" },
-  { name: "sand", value: "#EDE6D8", use: "primary text" },
-  { name: "muted", value: "#7E9A93", use: "secondary text, captions" },
-  { name: "signal", value: "#F2A93B", use: "the single accent" },
-];
+   For now it does the two things the fork must always do: show the name and
+   the one-line identity so a visitor who never clicks still learns who this
+   is, and offer both doors as real, indexable links. No motion yet. */
+
+import Link from "next/link";
+import { identity } from "@/data/content";
 
 export default function Home() {
   return (
-    <main className="mx-auto w-full max-w-3xl px-6 py-24">
-      <h1 className="font-display text-4xl font-semibold tracking-tight">
-        Clayne Cezclark Nable
+    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col justify-center px-6 py-24">
+      <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+        {identity.name}
       </h1>
+      <p className="measure mt-4 text-lg text-muted">{identity.oneLiner}</p>
 
-      <p className="measure mt-4 text-lg text-muted">
-        Computer Engineering graduate building full-stack web and mobile
-        applications — React, Node, PostgreSQL, Flutter — and self-hosting them
-        end to end with Docker. Based in Cebu.
-      </p>
+      <div className="mt-12 grid gap-4 sm:grid-cols-2">
+        <Link
+          href="/dev"
+          className="rounded-lg border border-edge bg-surface/40 p-6 hover:border-signal"
+        >
+          <span className="font-display text-xl font-semibold">
+            I&rsquo;m hiring
+          </span>
+          <span className="mt-2 block text-muted">Projects, stack, CV</span>
+        </Link>
 
-      <section className="mt-16">
-        <h2 className="font-display text-sm tracking-tight text-muted">
-          Tokens
-        </h2>
-        <ul className="mt-4 divide-y divide-edge border-y border-edge">
-          {tokens.map((token) => (
-            <li key={token.name} className="flex items-center gap-4 py-3">
-              <span
-                aria-hidden
-                className="size-8 shrink-0 rounded border border-edge"
-                style={{ background: `var(--${token.name})` }}
-              />
-              <span className="font-mono text-sm">--{token.name}</span>
-              <span className="font-mono text-sm text-muted">
-                {token.value}
-              </span>
-              <span className="ml-auto text-sm text-muted">{token.use}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mt-12">
-        <h2 className="font-display text-sm tracking-tight text-muted">
-          Typefaces
-        </h2>
-        <div className="mt-4 space-y-3">
-          <p className="font-display text-2xl">
-            Bricolage Grotesque — display, headings only
-          </p>
-          <p className="font-body text-lg">
-            Karla — body text, everything else. Line length caps at 72
-            characters.
-          </p>
-          <p className="font-mono text-sm">
-            JetBrains Mono — code snippets only, never decoration
-          </p>
-        </div>
-      </section>
-
-      <p className="mt-16 border-t border-edge pt-6 text-sm text-muted">
-        Scaffold only. The accent below is the one thing on this screen carrying{" "}
-        <span className="text-signal">--signal</span>, which is the rule: one
-        amber thing per screen.
-      </p>
+        <Link
+          href="/play"
+          className="rounded-lg border border-edge bg-surface/40 p-6 hover:border-sand"
+        >
+          <span className="font-display text-xl font-semibold">
+            I&rsquo;m curious
+          </span>
+          <span className="mt-2 block text-muted">The non-work stuff</span>
+        </Link>
+      </div>
     </main>
   );
 }

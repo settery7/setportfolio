@@ -1,0 +1,78 @@
+/* The personal track. Phase 2 gives this a real design; for now it exists so
+   the track toggle in the nav never points at a 404.
+
+   These are prototypes and experiments, and the page says so plainly. An
+   unfinished prototype presented as a prototype is honest and interesting.
+   The same thing presented as a finished game is not. */
+
+import type { Metadata } from "next";
+import Nav from "@/components/sections/nav";
+import Footer from "@/components/sections/footer";
+import { identity } from "@/data/content";
+
+export const metadata: Metadata = {
+  title: `Play — ${identity.name}`,
+  description:
+    "Game prototypes and experiments in Unity and Godot. Mostly unfinished, which is the point.",
+  alternates: { canonical: "/play" },
+};
+
+const prototypes = [
+  {
+    title: "How To Swim Your Fish",
+    engine: "Godot",
+    note: "Guide a fish with feed to reach the objective. The most complete of the three.",
+    href: "https://github.com/settery7/HowToSwimYourFish",
+  },
+  {
+    title: "Tek-Trails",
+    engine: "Unity",
+    note: "A virtual pet that merges study sessions with pet care, plus campus navigation around CIT-U. Team project, abandoned prototype.",
+    href: "https://github.com/settery7/Tek-Trails",
+  },
+  {
+    title: "anito",
+    engine: "Godot",
+    note: "An RPG built around mythical creatures. Early prototype.",
+    href: "https://github.com/settery7/anito",
+  },
+];
+
+export default function PlayPage() {
+  return (
+    <>
+      <Nav track="play" />
+      <main className="mx-auto w-full max-w-5xl px-6 py-20">
+        <h1 className="font-display text-3xl font-semibold tracking-tight">
+          Play
+        </h1>
+        <p className="measure mt-4 text-lg text-muted">
+          Things I build when nobody is grading them. Mostly unfinished, which
+          is the point.
+        </p>
+
+        <ul className="mt-10 divide-y divide-edge border-y border-edge">
+          {prototypes.map((prototype) => (
+            <li key={prototype.title} className="py-6">
+              <a
+                href={prototype.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-display text-xl font-semibold underline-offset-4 hover:underline"
+              >
+                {prototype.title}
+              </a>
+              <p className="mt-1 font-mono text-xs text-muted">
+                {prototype.engine}
+              </p>
+              <p className="measure mt-2 leading-relaxed text-muted">
+                {prototype.note}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </main>
+      <Footer track="play" />
+    </>
+  );
+}

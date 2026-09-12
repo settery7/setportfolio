@@ -101,26 +101,68 @@ npm run lint
 
 ## Deploying
 
-Free on Vercel Hobby:
+### Where to deploy, and why
 
-1. Push to GitHub
-2. Import the repo at vercel.com — the Next.js preset needs no configuration
-3. Deploy
+**Use Vercel.** It is the right answer for this project and it is not close.
 
-Every push to `main` redeploys; every pull request gets a preview URL.
+| Host | Verdict |
+| --- | --- |
+| **Vercel** | Built by the Next.js team. Every Next feature works on day one — image optimisation, route handlers, `next/og`, ISR. Zero configuration. **Pick this.** |
+| Netlify | Works, via an adapter that trails Next releases. No reason to take that risk here. |
+| Cloudflare Pages | Fast and generous, but Next on Workers needs `@opennextjs/cloudflare` and some features still have rough edges. |
+| GitHub Pages | Static export only. Fine today, but it blocks `next/image` optimisation and any future server route. |
+| Render | Good for containers and databases — it hosts the Pykes backend. Overkill for a static front end, and its free tier sleeps. |
 
-**Domain.** `claynenable.com` is about $10/year and is worth it — a real name
-domain is what a non-technical recruiter searches for. The free fallback is a
-`.is-a.dev` subdomain, claimed by opening a pull request against
-`github.com/is-a-dev/register`.
+This site is fully prerendered today (five static routes), so almost anything
+would serve it. Vercel is still the pick, because the moment you add an OG
+image route or a server action, everything else needs reworking and Vercel
+does not.
 
-**Environment variables.** Only one:
+### Steps
 
+```bash
+git remote add origin git@github.com:settery7/<repo>.git
+git push -u origin main
 ```
-NEXT_PUBLIC_WEB3FORMS_KEY=   # from web3forms.com, free tier
-```
 
-Set it in Vercel's project settings. Keep `.env.local` out of git.
+1. Go to [vercel.com/new](https://vercel.com/new) and import the repository.
+   The Next.js preset is detected — change nothing.
+2. Before the first deploy, open **Environment Variables** and add:
+
+   ```
+   NEXT_PUBLIC_WEB3FORMS_KEY = <your key from web3forms.com>
+   ```
+
+   This is the one variable the site needs. `.env.local` is gitignored and
+   never reaches Vercel, so without this the contact form fails in production
+   while working perfectly on your machine. It is the single most common way
+   this deploy goes wrong.
+3. Deploy.
+
+Every push to `main` redeploys. Every pull request gets its own preview URL,
+which is the safe way to look at a change before it is live.
+
+### After the first deploy
+
+- Open the live contact form and send yourself one real message. Localhost
+  working does not prove production works — different origin, different env.
+- Check `/dev`, `/play`, and `/dev/contact` all load, and that the track
+  toggle moves between them.
+- Paste the URL into LinkedIn's post composer to see the link preview. Fixing
+  that is Phase 5.
+
+### Domain
+
+`claynenable.com` is about $10/year and worth it — a real name domain is what
+a non-technical recruiter searches for. Buy it anywhere (Namecheap,
+Cloudflare), then add it under the project's **Domains** tab and follow the
+DNS instructions.
+
+The free fallback is a `.is-a.dev` subdomain, claimed by opening a pull
+request against `github.com/is-a-dev/register`.
+
+Until you have either, the `*.vercel.app` URL is a perfectly respectable thing
+to put on a CV.
 
 ## Cost
 
