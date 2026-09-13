@@ -7,6 +7,7 @@
 
 import type { Metadata } from "next";
 import Image from "next/image";
+import Reveal from "@/components/reveal";
 import Nav from "@/components/sections/nav";
 import Footer from "@/components/sections/footer";
 import { identity } from "@/data/content";
@@ -57,45 +58,47 @@ export default function PlayPage() {
         </p>
 
         <ul className="mt-10 divide-y divide-edge border-y border-edge">
-          {prototypes.map((prototype) => (
+          {prototypes.map((prototype, index) => (
             <li key={prototype.title} className="py-6">
-              <a
-                href={prototype.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-display text-xl font-semibold underline-offset-4 hover:underline"
-              >
-                {prototype.title}
-              </a>
-              <p className="mt-1 font-mono text-xs text-muted">
-                {prototype.engine}
-              </p>
-              {/* The one placement on the site, so it carries --signal here.
+              <Reveal delay={index * 80}>
+                <a
+                  href={prototype.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-display text-xl font-semibold underline-offset-4 hover:underline"
+                >
+                  {prototype.title}
+                </a>
+                <p className="mt-1 font-mono text-xs text-muted">
+                  {prototype.engine}
+                </p>
+                {/* The one placement on the site, so it carries --signal here.
                   Nothing else on this page competes for the accent. It links
                   to the results table, which is what turns it from a claim
                   into proof — the standard every other line is held to. */}
-              {"badge" in prototype && prototype.badge ? (
-                <a
-                  href={prototype.badgeHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 inline-block rounded-full border border-signal px-3 py-1 text-xs text-signal hover:bg-signal hover:text-ink"
-                >
-                  {prototype.badge}
-                </a>
-              ) : null}
-              <p className="measure mt-2 leading-relaxed text-muted">
-                {prototype.note}
-              </p>
-              {"cover" in prototype && prototype.cover ? (
-                <Image
-                  src={prototype.cover}
-                  alt={`${prototype.title} — title screen`}
-                  width={1139}
-                  height={635}
-                  className="mt-4 w-full max-w-lg rounded border border-edge"
-                />
-              ) : null}
+                {"badge" in prototype && prototype.badge ? (
+                  <a
+                    href={prototype.badgeHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 inline-block rounded-full border border-signal px-3 py-1 text-xs text-signal hover:bg-signal hover:text-ink"
+                  >
+                    {prototype.badge}
+                  </a>
+                ) : null}
+                <p className="measure mt-2 leading-relaxed text-muted">
+                  {prototype.note}
+                </p>
+                {"cover" in prototype && prototype.cover ? (
+                  <Image
+                    src={prototype.cover}
+                    alt={`${prototype.title} — title screen`}
+                    width={1139}
+                    height={635}
+                    className="mt-4 w-full max-w-lg rounded border border-edge"
+                  />
+                ) : null}
+              </Reveal>
             </li>
           ))}
         </ul>

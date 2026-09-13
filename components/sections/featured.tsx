@@ -7,6 +7,7 @@
    equal. If projects ever outgrow this section, the carousel is the layout
    that scales. */
 
+import Reveal from "@/components/reveal";
 import { coursework } from "@/data/content";
 import ProjectCarousel from "@/components/sections/project-carousel";
 
@@ -23,17 +24,19 @@ export default function Featured() {
 
       <h3 className="mt-16 font-display text-sm text-muted">Coursework</h3>
       <ul className="mt-4 divide-y divide-edge border-y border-edge">
-        {coursework.map((item) => (
+        {coursework.map((item, index) => (
           <li key={item.title} className="py-4">
-            <a
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline-offset-4 hover:underline"
-            >
-              {item.title}
-            </a>
-            <p className="mt-1 text-sm text-muted">{item.note}</p>
+            <Reveal delay={index * 70}>
+              <a
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline-offset-4 hover:underline"
+              >
+                {item.title}
+              </a>
+              <p className="mt-1 text-sm text-muted">{item.note}</p>
+            </Reveal>
           </li>
         ))}
       </ul>

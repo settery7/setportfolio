@@ -3,6 +3,7 @@
 
    Equal weight, uniform tiles: this is genuinely a set, so no hierarchy. */
 
+import Reveal from "@/components/reveal";
 import { capabilities } from "@/data/content";
 
 export default function Capabilities() {
@@ -16,26 +17,25 @@ export default function Capabilities() {
       </h2>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
-        {capabilities.map((capability) => (
-          <article
-            key={capability.title}
-            className="rounded-lg border border-edge bg-surface/40 p-6"
-          >
-            <h3 className="font-display text-lg font-semibold">
-              {capability.title}
-            </h3>
-            <p className="mt-2 leading-relaxed text-muted">
-              {capability.detail}
-            </p>
-            <a
-              href={capability.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-block text-sm underline underline-offset-4"
-            >
-              Proof: {capability.proof}
-            </a>
-          </article>
+        {capabilities.map((capability, index) => (
+          <Reveal key={capability.title} delay={index * 70}>
+            <article className="spotlight lift h-full rounded-lg border border-edge bg-surface/40 p-6 hover:border-signal">
+              <h3 className="font-display text-lg font-semibold">
+                {capability.title}
+              </h3>
+              <p className="mt-2 leading-relaxed text-muted">
+                {capability.detail}
+              </p>
+              <a
+                href={capability.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-block text-sm underline underline-offset-4"
+              >
+                Proof: {capability.proof}
+              </a>
+            </article>
+          </Reveal>
         ))}
       </div>
     </section>
