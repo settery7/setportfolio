@@ -6,6 +6,7 @@ import Hero from "@/components/sections/hero";
 import ProofStrip from "@/components/sections/proof";
 import Featured from "@/components/sections/featured";
 import Capabilities from "@/components/sections/capabilities";
+import Contact from "@/components/sections/contact";
 import { identity } from "@/data/content";
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function DevPage() {
       <ProofStrip />
       <Featured />
       <Capabilities />
+      <Contact />
     </main>
   );
 }

@@ -1,25 +1,30 @@
 "use client";
 
-/* Orientation and the track toggle — docs/build-spec.md §1.
-   Client because it reads scroll position and writes localStorage. */
+/* Orientation, and the way back to the fork — docs/build-spec.md §1.
+
+   The track toggle is gone. The personal track is reachable from the fork
+   screen only, which keeps /dev free of anything a recruiter did not come
+   for. Both routes stay real and directly linkable, so nothing is hidden
+   from a crawler or from anyone holding the URL — see CLAUDE.md § the core
+   concept, where that rule is recorded.
+
+   Menu carries ?stay so the fork does not immediately bounce a returning
+   visitor back into the track they just left. */
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { setTrack, type Track } from "@/lib/track";
+import type { Track } from "@/lib/track";
 
-const links = [
+const devLinks = [
   { href: "/dev#projects", label: "Projects" },
   { href: "/dev#about", label: "About" },
-  { href: "/dev/contact", label: "Contact" },
+  { href: "/dev#contact", label: "Contact" },
 ];
 
 export default function Nav({ track = "dev" }: { track?: Track }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
 
-  /* Hairline border appears only after 40px of scroll. */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
@@ -27,8 +32,7 @@ export default function Nav({ track = "dev" }: { track?: Track }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const other: Track = track === "dev" ? "play" : "dev";
-  const otherLabel = other === "play" ? "Wander around" : "The work";
+  const links = track === "dev" ? devLinks : [];
 
   return (
     <header
@@ -40,52 +44,55 @@ export default function Nav({ track = "dev" }: { track?: Track }) {
         aria-label="Primary"
         className="mx-auto flex w-full max-w-5xl items-center gap-6 px-6 py-4"
       >
-        <Link href="/dev" className="font-display text-lg font-semibold">
+        <Link
+          href={track === "dev" ? "/dev" : "/play"}
+          className="font-display text-lg font-semibold"
+        >
           Clayne.
         </Link>
 
         <ul className="ml-auto hidden items-center gap-6 sm:flex">
-          {links.map((link) => {
-            /* In-page anchors are not "the current page" — only a real route
-               match counts, or every hash link on /dev claims aria-current. */
-            const active = !link.href.includes("#") && pathname === link.href;
-            return (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  aria-current={active ? "page" : undefined}
-                  className={`text-sm underline-offset-8 hover:underline ${
-                    active ? "font-semibold underline" : "text-muted"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            );
-          })}
+          {links.map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                className="text-sm text-muted underline-offset-8 hover:text-sand hover:underline"
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
           <li>
             <Link
-              href={`/${other}`}
-              onClick={() => setTrack(other)}
+              href="/?stay=1"
               className="rounded-full border border-edge px-4 py-1.5 text-sm hover:border-signal"
             >
-              {otherLabel}
+              &larr; Menu
             </Link>
           </li>
         </ul>
 
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          className="ml-auto rounded border border-edge px-3 py-1.5 text-sm sm:hidden"
-        >
-          {open ? "Close" : "Menu"}
-        </button>
+        {links.length > 0 ? (
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            className="ml-auto rounded border border-edge px-3 py-1.5 text-sm sm:hidden"
+          >
+            {open ? "Close" : "Menu"}
+          </button>
+        ) : (
+          <Link
+            href="/?stay=1"
+            className="ml-auto rounded-full border border-edge px-4 py-1.5 text-sm sm:hidden"
+          >
+            &larr; Menu
+          </Link>
+        )}
       </nav>
 
-      {open && (
+      {open && links.length > 0 && (
         <ul
           id="mobile-menu"
           className="flex flex-col gap-1 border-t border-edge px-6 pb-4 sm:hidden"
@@ -103,14 +110,11 @@ export default function Nav({ track = "dev" }: { track?: Track }) {
           ))}
           <li>
             <Link
-              href={`/${other}`}
-              onClick={() => {
-                setTrack(other);
-                setOpen(false);
-              }}
+              href="/?stay=1"
+              onClick={() => setOpen(false)}
               className="block py-2 text-signal"
             >
-              {otherLabel}
+              &larr; Back to menu
             </Link>
           </li>
         </ul>

@@ -100,7 +100,7 @@ export default function PlayPage() {
           ))}
         </ul>
       </main>
-      <Footer track="play" />
+      <Footer />
     </>
   );
 }

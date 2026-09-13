@@ -3,18 +3,17 @@
 
 import Link from "next/link";
 import { identity } from "@/data/content";
-import type { Track } from "@/lib/track";
 
-export default function Footer({ track = "dev" }: { track?: Track }) {
-  const other: Track = track === "dev" ? "play" : "dev";
-
+export default function Footer() {
   return (
     <footer className="mt-auto border-t border-edge">
       <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center gap-x-6 gap-y-3 px-6 py-10 text-sm">
         <span className="font-display font-semibold">{identity.name}</span>
 
-        <Link href={`/${other}`} className="text-muted hover:text-sand">
-          {other === "play" ? "Wander around" : "The work"}
+        {/* Back to the fork, not across to the other track. The personal
+            side is reachable from the menu only — see nav.tsx. */}
+        <Link href="/?stay=1" className="text-muted hover:text-sand">
+          &larr; Menu
         </Link>
 
         <a

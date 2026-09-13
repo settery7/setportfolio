@@ -44,6 +44,46 @@ body {
   outline-offset: 3px;
 }
 
+/* The one orchestrated moment on the site — CLAUDE.md § motion budget, and
+   docs/build-spec.md §0. Name, then tagline, then doors, roughly 600ms in
+   total. It runs once on mount and never repeats.
+
+   Plain CSS rather than Framer Motion on purpose: four keyframes and a delay
+   do the whole job, and the fork screen has a 100KB JS budget to stay inside.
+
+   Elements are visible by default and only start hidden inside the
+   no-preference query, so a reduced-motion visitor sees the finished state
+   immediately rather than a blank panel. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    animation: reveal 460ms cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+  }
+  .reveal-1 {
+    animation-delay: 60ms;
+  }
+  .reveal-2 {
+    animation-delay: 200ms;
+  }
+  .reveal-3 {
+    animation-delay: 340ms;
+  }
+  .reveal-4 {
+    animation-delay: 430ms;
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Quality floor: prefers-reduced-motion honoured everywhere.
    Sections may still opt into subtler behaviour, but nothing animates
    by default for a user who has asked it not to. */

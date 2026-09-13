@@ -4,16 +4,12 @@
 import Nav from "@/components/sections/nav";
 import Footer from "@/components/sections/footer";
 
-export default function DevLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DevLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Nav track="dev" />
       {children}
-      <Footer track="dev" />
+      <Footer />
     </>
   );
 }

@@ -26,8 +26,20 @@ The fork is a **fork, not a gate**. Rules that must never be broken:
    A visitor who never clicks still learns who this is.
 3. The chosen track persists in `localStorage` under key `track`. A returning
    visitor is redirected straight into their track, with a visible way back.
-4. A track toggle is always present in the nav. Never bury it in the footer.
-5. Contact details are reachable from both tracks.
+   That way back is the **Menu** control in the nav, which links to `/?stay=1`
+   — the `stay` parameter suppresses the redirect, or the fork would bounce
+   them straight back out again.
+4. **Changed 13 September 2026, at Clayne's request.** This previously read
+   "a track toggle is always present in the nav". It no longer is. `/play` is
+   reachable from the fork screen only, so `/dev` carries nothing a recruiter
+   did not come for. Rule 1 still holds in full: both tracks remain real,
+   indexable, directly linkable routes, so nothing is hidden from a crawler
+   or from anyone holding the URL. Do not reinstate a cross-track toggle
+   without asking.
+5. Contact details are reachable from both tracks. On `/dev` contact is a
+   section at the foot of the page rather than its own route; `/dev/contact`
+   still resolves and redirects to `/dev#contact`, because that URL has been
+   shared and a 404 is worse than an extra hop.
 
 ## Stack
 
