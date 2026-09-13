@@ -108,7 +108,7 @@ export default function Nav({ track = "dev" }: { track?: Track }) {
       {open && links.length > 0 && (
         <ul
           id="mobile-menu"
-          className="flex flex-col gap-1 border-t border-edge px-6 pb-4 sm:hidden"
+          className="fade-in flex flex-col gap-1 border-t border-edge px-6 pb-4 sm:hidden"
         >
           {links.map((link) => (
             <li key={link.href}>

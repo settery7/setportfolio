@@ -90,13 +90,15 @@ export default function PlayPage() {
                   {prototype.note}
                 </p>
                 {"cover" in prototype && prototype.cover ? (
-                  <Image
-                    src={prototype.cover}
-                    alt={`${prototype.title} — title screen`}
-                    width={1139}
-                    height={635}
-                    className="mt-4 w-full max-w-lg rounded border border-edge"
-                  />
+                  <div className="zoom-frame mt-4 w-full max-w-lg rounded border border-edge">
+                    <Image
+                      src={prototype.cover}
+                      alt={`${prototype.title} — title screen`}
+                      width={1139}
+                      height={635}
+                      className="w-full"
+                    />
+                  </div>
                 ) : null}
               </Reveal>
             </li>

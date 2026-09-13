@@ -78,7 +78,7 @@ export default function ContactForm() {
 
   if (status === "sent") {
     return (
-      <div className="rounded-lg border border-signal bg-surface/40 p-8">
+      <div className="fade-in rounded-lg border border-signal bg-surface/40 p-8">
         <h2 className="font-display text-xl font-semibold">Message sent.</h2>
         <p className="measure mt-2 text-muted">
           It is in my inbox. I will reply to the address you gave me.

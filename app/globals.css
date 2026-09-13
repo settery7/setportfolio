@@ -87,6 +87,35 @@ body > * {
   transform: translateX(3px);
 }
 
+/* The mirror of .nudge, for links that go back rather than forward. */
+.back .arrow-back {
+  transition: transform var(--fast) var(--ease);
+}
+.back:hover .arrow-back,
+.back:focus-visible .arrow-back {
+  transform: translateX(-3px);
+}
+
+/* The mobile menu and the contact form's success state both used to appear
+   between one frame and the next. A 200ms fade is the difference between
+   something arriving and something teleporting. */
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in {
+    animation: fade-in 200ms var(--ease) forwards;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Image zoom that cannot shift layout: the frame keeps its size and only the
    image inside it scales. Transform only, so nothing reflows. */
 .zoom-frame {
