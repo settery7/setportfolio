@@ -143,7 +143,7 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="rounded-full bg-signal px-5 py-2.5 font-semibold text-ink disabled:opacity-60"
+          className="press rounded-full bg-signal px-5 py-2.5 font-semibold text-ink disabled:opacity-60"
         >
           {status === "sending" ? "Sending…" : "Send message"}
         </button>
@@ -159,7 +159,7 @@ export default function ContactForm() {
               setCopied(false);
             }
           }}
-          className="rounded-full border border-edge px-5 py-2.5 hover:border-sand"
+          className="press rounded-full border border-edge px-5 py-2.5 hover:border-sand"
         >
           {copied ? "Copied" : "Copy email"}
         </button>

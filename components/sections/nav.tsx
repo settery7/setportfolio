@@ -12,6 +12,7 @@
    visitor back into the track they just left. */
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { Track } from "@/lib/track";
 
@@ -24,6 +25,8 @@ const devLinks = [
 export default function Nav({ track = "dev" }: { track?: Track }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const isOnFork = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -36,8 +39,11 @@ export default function Nav({ track = "dev" }: { track?: Track }) {
 
   return (
     <header
-      className={`sticky top-0 z-50 bg-ink/80 backdrop-blur-md ${
-        scrolled ? "border-b border-edge" : "border-b border-transparent"
+      /* The hairline and the backdrop fade in over 320ms instead of snapping
+         at exactly 40px, which is the difference between a header that
+         responds to you and one that flickers. */
+      className={`sticky top-0 z-50 border-b transition-[background-color,border-color] duration-[320ms] ease-[var(--ease)] backdrop-blur-md motion-reduce:transition-none ${
+        scrolled ? "border-edge bg-ink/85" : "border-transparent bg-ink/40"
       }`}
     >
       <nav
@@ -56,16 +62,23 @@ export default function Nav({ track = "dev" }: { track?: Track }) {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="text-sm text-muted underline-offset-8 hover:text-sand hover:underline"
+                /* The underline grows from the left rather than appearing all
+                   at once. transform only, so it never nudges the layout. */
+                className="group relative text-sm text-muted transition-colors duration-[180ms] ease-[var(--ease)] hover:text-sand motion-reduce:transition-none"
               >
                 {link.label}
+                <span
+                  aria-hidden
+                  className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-sand transition-transform duration-[180ms] ease-[var(--ease)] group-hover:scale-x-100 motion-reduce:transition-none"
+                />
               </Link>
             </li>
           ))}
           <li>
             <Link
               href="/?stay=1"
-              className="rounded-full border border-edge px-4 py-1.5 text-sm hover:border-signal"
+              aria-current={isOnFork ? "page" : undefined}
+              className="press rounded-full border border-edge px-4 py-1.5 text-sm hover:border-signal"
             >
               &larr; Menu
             </Link>

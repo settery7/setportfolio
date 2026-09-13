@@ -6,6 +6,7 @@
    keeps working. */
 
 import ContactForm from "@/components/contact-form";
+import Reveal from "@/components/reveal";
 import { identity } from "@/data/content";
 
 export default function Contact() {
@@ -14,17 +15,24 @@ export default function Contact() {
       id="contact"
       className="mx-auto w-full max-w-5xl border-t border-edge px-6 py-20"
     >
-      <h2 className="font-display text-2xl font-semibold tracking-tight">
-        Get in touch
-      </h2>
-      <p className="measure mt-4 text-lg text-muted">
-        I&rsquo;m looking for full-stack or mobile development work. The fastest
-        way to reach me is email, and I read everything that arrives.
-      </p>
+      {/* Grouped, not animated word by word: heading and intro arrive
+          together, then the form. The brief asks for related content to be
+          revealed naturally rather than element by element. */}
+      <Reveal>
+        <h2 className="font-display text-2xl font-semibold tracking-tight">
+          Get in touch
+        </h2>
+        <p className="measure mt-4 text-lg text-muted">
+          I&rsquo;m looking for full-stack or mobile development work. The
+          fastest way to reach me is email, and I read everything that arrives.
+        </p>
+      </Reveal>
 
-      <div className="mt-10">
-        <ContactForm />
-      </div>
+      <Reveal delay={90}>
+        <div className="mt-10">
+          <ContactForm />
+        </div>
+      </Reveal>
 
       <div className="mt-12 flex flex-wrap gap-6 border-t border-edge pt-6 text-sm">
         <a

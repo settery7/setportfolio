@@ -33,6 +33,73 @@ body {
   font-family: var(--font-karla), ui-sans-serif, system-ui, sans-serif;
 }
 
+/* One easing curve and two durations for the whole site. Consistency is most
+   of what makes interaction feel designed rather than assembled: if every
+   hover uses the same curve, the site feels like one object. */
+:root {
+  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --fast: 180ms;
+  --medium: 320ms;
+}
+
+/* Ambient detail — grain. One effect, not five.
+
+   Chosen over a moving gradient or particles because it cannot distract: it
+   does not move, it costs no JavaScript and no canvas, and it is a single
+   inline SVG under 300 bytes. On a flat dark teal it stops large empty areas
+   reading as dead space. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Everything real sits above the grain. */
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Press feedback. A control that yields slightly under the pointer reads as
+   physical; without it a click feels like nothing happened. */
+.press {
+  transition:
+    transform var(--fast) var(--ease),
+    opacity var(--fast) var(--ease),
+    border-color var(--fast) var(--ease),
+    background-color var(--fast) var(--ease);
+}
+.press:active {
+  transform: scale(0.97);
+}
+
+/* An arrow that leans in the direction it will take you. */
+.nudge .arrow {
+  display: inline-block;
+  transition: transform var(--fast) var(--ease);
+}
+.nudge:hover .arrow,
+.nudge:focus-visible .arrow {
+  transform: translateX(3px);
+}
+
+/* Image zoom that cannot shift layout: the frame keeps its size and only the
+   image inside it scales. Transform only, so nothing reflows. */
+.zoom-frame {
+  overflow: hidden;
+}
+.zoom-frame img {
+  transition: transform var(--medium) var(--ease);
+}
+.zoom-frame:hover img,
+.zoom-frame:focus-within img {
+  transform: scale(1.04);
+}
+
 /* Anchor links in the nav jump to #projects, #about and #contact. Gliding
    there instead of teleporting keeps a visitor oriented. scroll-padding stops
    the sticky header covering the heading it just landed on.

@@ -165,14 +165,16 @@ export default function ProjectCarousel() {
                     active={isActive}
                   />
                 ) : project.cover ? (
-                  <Image
-                    src={project.cover}
-                    alt={`${project.title} — screenshot of the running application`}
-                    width={1600}
-                    height={1000}
-                    draggable={false}
-                    className="mb-4 aspect-[16/10] w-full rounded border border-edge object-cover"
-                  />
+                  <div className="zoom-frame mb-4 aspect-[16/10] w-full rounded border border-edge">
+                    <Image
+                      src={project.cover}
+                      alt={`${project.title} — screenshot of the running application`}
+                      width={1600}
+                      height={1000}
+                      draggable={false}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
                 ) : null}
 
                 <h3 className="font-display text-xl font-semibold">
@@ -185,7 +187,7 @@ export default function ProjectCarousel() {
                   {project.tech.map((tech) => (
                     <li
                       key={tech}
-                      className="rounded border border-edge px-2 py-0.5 font-mono text-xs text-muted"
+                      className="rounded border border-edge px-2 py-0.5 font-mono text-xs text-muted transition-colors duration-[180ms] ease-[var(--ease)] hover:border-signal hover:text-sand motion-reduce:transition-none"
                     >
                       {tech}
                     </li>
@@ -198,9 +200,10 @@ export default function ProjectCarousel() {
                   <Link
                     href={`/dev/projects/${project.slug}`}
                     tabIndex={isActive ? 0 : -1}
-                    className="font-semibold underline underline-offset-4"
+                    className="nudge font-semibold underline underline-offset-4"
                   >
                     Case study
+                    <span className="arrow ml-1.5">&rarr;</span>
                   </Link>
                   {project.links.live ? (
                     <a
@@ -236,7 +239,7 @@ export default function ProjectCarousel() {
           type="button"
           onClick={() => go(-1)}
           aria-label="Previous project"
-          className="rounded-full border border-edge px-4 py-2 hover:border-signal"
+          className="press rounded-full border border-edge px-4 py-2 hover:border-signal"
         >
           &#8249;
         </button>
@@ -249,7 +252,7 @@ export default function ProjectCarousel() {
           type="button"
           onClick={() => go(1)}
           aria-label="Next project"
-          className="rounded-full border border-edge px-4 py-2 hover:border-signal"
+          className="press rounded-full border border-edge px-4 py-2 hover:border-signal"
         >
           &#8250;
         </button>
